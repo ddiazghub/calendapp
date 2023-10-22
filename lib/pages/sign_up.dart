@@ -33,7 +33,11 @@ class SignUp extends GetView<AuthService> {
   FormGroup buildForm() {
     return fb.group({
       'email': [defaults.email, Validators.required, Validators.email],
-      'password': [defaults.email, Validators.required, Validators.minLength(8)],
+      'password': [
+        defaults.email,
+        Validators.required,
+        Validators.minLength(8)
+      ],
       'name': [defaults.name, Validators.required],
       'birthday': [defaults.birthday, Validators.required],
       'phone': [defaults.phone, Validators.required],
@@ -55,79 +59,82 @@ class SignUp extends GetView<AuthService> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: ReactiveFormBuilder(
-          form: buildForm,
-          builder: (context, form, child) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ReactiveTextField<String>(
-                  key: keys.name,
-                  formControlName: 'name',
-                  textInputAction: TextInputAction.next,
-                  decoration: decoration("name"),
-                ),
-                const SizedBox(height: 16.0),
-                ReactiveTextField<String>(
-                  key: keys.email,
-                  formControlName: 'email',
-                  textInputAction: TextInputAction.next,
-                  decoration: decoration("email"),
-                ),
-                const SizedBox(height: 16.0),
-                ReactiveTextField<String>(
-                  key: keys.password,
-                  formControlName: 'password',
-                  obscureText: true,
-                  textInputAction: TextInputAction.next,
-                  decoration: decoration("Password"),
-                ),
-                const SizedBox(height: 16.0),
-                ReactiveTextField<DateTime>(
-                  key: keys.birthday,
-                  formControlName: 'birthday',
-                  textInputAction: TextInputAction.next,
-                  decoration: decoration("birthday"),
-                ),
-                const SizedBox(height: 16.0),
-                ReactiveTextField<String>(
-                  key: keys.phone,
-                  formControlName: 'phone',
-                  textInputAction: TextInputAction.next,
-                  decoration: decoration("phone"),
-                ),
-                const SizedBox(height: 16.0),
-                ReactiveTextField<String>(
-                  key: keys.image,
-                  formControlName: 'image',
-                  textInputAction: TextInputAction.done,
-                  decoration: decoration("image"),
-                ),
-                ElevatedButton(
-                  key: keys.submit,
-                  onPressed: () async {
-                    if (form.valid) {
-                      logInfo(form.value);
-                      final user = BaseUser(
-                        form.control("email").value,
-                        form.control("name").value,
-                        form.control("birthday").value,
-                        form.control("phone").value,
-                        form.control("image").value,
-                      );
+        child: SingleChildScrollView(
+          child: ReactiveFormBuilder(
+            form: buildForm,
+            builder: (context, form, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ReactiveTextField<String>(
+                    key: keys.name,
+                    formControlName: 'name',
+                    textInputAction: TextInputAction.next,
+                    decoration: decoration("name"),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ReactiveTextField<String>(
+                    key: keys.email,
+                    formControlName: 'email',
+                    textInputAction: TextInputAction.next,
+                    decoration: decoration("email"),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ReactiveTextField<String>(
+                    key: keys.password,
+                    formControlName: 'password',
+                    obscureText: true,
+                    textInputAction: TextInputAction.next,
+                    decoration: decoration("Password"),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ReactiveTextField<DateTime>(
+                    key: keys.birthday,
+                    formControlName: 'birthday',
+                    textInputAction: TextInputAction.next,
+                    decoration: decoration("birthday"),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ReactiveTextField<String>(
+                    key: keys.phone,
+                    formControlName: 'phone',
+                    textInputAction: TextInputAction.next,
+                    decoration: decoration("phone"),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ReactiveTextField<String>(
+                    key: keys.image,
+                    formControlName: 'image',
+                    textInputAction: TextInputAction.done,
+                    decoration: decoration("image"),
+                  ),
+                  ElevatedButton(
+                    key: keys.submit,
+                    onPressed: () async {
+                      if (form.valid) {
+                        logInfo(form.value);
+                        final user = BaseUser(
+                          form.control("email").value,
+                          form.control("name").value,
+                          form.control("birthday").value,
+                          form.control("phone").value,
+                          form.control("image").value,
+                        );
 
-                      await controller.signUp(user, form.control("password").value);
-                      Get.to(ChatPage());
-                    } else {
-                      form.markAllAsTouched();
-                    }
-                  },
-                  child: const Text('Submit'),
-                ),
-              ],
-            );
-          },
+                        await controller.signUp(
+                            user, form.control("password").value);
+                        Get.to(ChatPage());
+                      } else {
+                        form.markAllAsTouched();
+                      }
+                    },
+                    child: const Text('Submit'),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

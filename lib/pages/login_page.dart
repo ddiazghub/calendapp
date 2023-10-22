@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:scheduler_app/pages/chat_page.dart';
 import 'package:scheduler_app/pages/sign_up.dart';
@@ -30,7 +29,11 @@ class LoginPage extends GetView<AuthService> {
   FormGroup buildForm() {
     return fb.group({
       'email': [defaults.email, Validators.required, Validators.email],
-      'password': [defaults.password, Validators.required, Validators.minLength(8)],
+      'password': [
+        defaults.password,
+        Validators.required,
+        Validators.minLength(8)
+      ],
     });
   }
 
@@ -70,7 +73,8 @@ class LoginPage extends GetView<AuthService> {
                     if (form.valid) {
                       print("Hello12");
                       print(form.value);
-                      await controller.login(form.control("email").value, form.control("password").value);
+                      await controller.login(form.control("email").value,
+                          form.control("password").value);
                       print(form.value);
                       Get.to(ChatPage());
                     } else {

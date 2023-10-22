@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'firestore_serializable.dart';
-import 'package:cloud_firestore_odm/annotation.dart';
 
 part 'user.g.dart';
 
@@ -19,11 +18,13 @@ class BaseUser {
 
 @FirestoreSerializable
 class UserData extends BaseUser {
-  UserData(this.uid, super.email, super.name, super.birthday, super.phone, super.image);
+  UserData(this.uid, super.email, super.name, super.birthday, super.phone,
+      super.image);
 
   final String uid;
 
-  factory UserData.fromJson(Map<String, Object?> json) => _$UserDataFromJson(json);
+  factory UserData.fromJson(Map<String, Object?> json) =>
+      _$UserDataFromJson(json);
   Map<String, Object?> toJson() => _$UserDataToJson(this);
 
   factory UserData.from(BaseUser baseUser, User firebaseUser) {
@@ -39,7 +40,8 @@ class UserData extends BaseUser {
 }
 
 @Collection<UserData>('users')
-final UserRef = UserDataCollectionReference(); // ignore: non_constant_identifier_names
+final UserRef =
+    UserDataCollectionReference(); // ignore: non_constant_identifier_names
 
 class UserWithCredentials {
   UserWithCredentials(this.user, this.credentials);
