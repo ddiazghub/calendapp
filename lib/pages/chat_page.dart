@@ -1,13 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:scheduler_app/components/message_list.dart';
+import 'package:scheduler_app/models/message.dart';
+import 'package:scheduler_app/services/auth_service.dart';
 
-const messageLimit = 30;
-
-class ChatPage extends StatelessWidget {
-  final DateFormat formatter = DateFormat('y/MM/dd HH:mm:SS');
-
-  ChatPage({Key? key}) : super(key: key);
+class ChatPage extends GetView<AuthService> {
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +43,17 @@ class ChatPage extends StatelessWidget {
             FractionallySizedBox(
               widthFactor: 0.5,
               child: TextField(
-                decoration:
-                    const InputDecoration(border: OutlineInputBorder(), hintText: 'Enter your message and hit Enter'),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your message and hit Enter',
+                ),
                 onSubmitted: (String value) {
-                  FirebaseFirestore.instance.collection('chat').add(
-                    {'message': value, 'timestamp': DateTime.now().millisecondsSinceEpoch},
+                  final message = Message(
+                    value,
+                    DateTime.now().toUtc(),
+                    controller.user!.user.email,
                   );
+                  MessageRef.add(message);
                 },
               ),
             ),
@@ -64,43 +67,7 @@ class ChatPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('chat')
-                    .orderBy('timestamp', descending: true)
-                    .limit(messageLimit)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(child: Text('$snapshot.error'));
-                  } else if (!snapshot.hasData) {
-                    return const Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-
-                  var docs = snapshot.data!.docs;
-
-                  return ListView.builder(
-                    itemCount: docs.length,
-                    itemBuilder: (context, i) {
-                      return ListTile(
-                        leading: DefaultTextStyle.merge(
-                          style: const TextStyle(color: Colors.indigo),
-                          child: Text(formatter.format(DateTime.fromMillisecondsSinceEpoch(docs[i]['timestamp']))),
-                        ),
-                        title: Text('${docs[i]['message']}'),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
+            const Expanded(child: MessageList()),
           ],
         ),
       ),
