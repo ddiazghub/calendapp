@@ -124,7 +124,7 @@ class SignUp extends GetView<AuthService> {
 
                         await controller.signUp(
                             user, form.control("password").value);
-                        Get.to(ChatPage());
+                        Get.to(const ChatPage());
                       } else {
                         form.markAllAsTouched();
                       }
