@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:scheduler_app/helpers.dart';
 import 'package:scheduler_app/models/user.dart';
@@ -45,12 +46,13 @@ class SignUp extends GetView<AuthService> {
     });
   }
 
-  static InputDecoration decoration(String label) {
+  static InputDecoration decoration(String label, {Icon? icon}) {
     return InputDecoration(
       labelText: label,
       helperText: '',
       helperStyle: const TextStyle(height: 0.7),
       errorStyle: const TextStyle(height: 0.7),
+      suffixIcon: icon,
     );
   }
 
@@ -89,11 +91,13 @@ class SignUp extends GetView<AuthService> {
                     decoration: decoration("Password"),
                   ),
                   const SizedBox(height: 16.0),
-                  ReactiveTextField<DateTime>(
+                  ReactiveDateTimePicker(
                     key: keys.birthday,
                     formControlName: 'birthday',
-                    textInputAction: TextInputAction.next,
-                    decoration: decoration("birthday"),
+                    decoration: decoration(
+                      "birthday",
+                      icon: const Icon(Icons.calendar_today),
+                    ),
                   ),
                   const SizedBox(height: 16.0),
                   ReactiveTextField<String>(

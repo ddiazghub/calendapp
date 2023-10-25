@@ -1121,7 +1121,7 @@ class MessageQueryDocumentSnapshot
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       json['text'] as String,
-      Message._localTime(json['createdAt'] as Timestamp),
+      Converters.localTime(json['createdAt'] as Timestamp),
       json['user'] as String,
     );
 
