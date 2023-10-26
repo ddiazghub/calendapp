@@ -41,7 +41,7 @@ class UserData extends BaseUser {
 
 @Collection<UserData>('users')
 final UserRef =
-    UserDataCollectionReference(); // ignore: non_constant_identifier_names
+    UserDataCollectionReference();
 
 class UserWithCredentials {
   UserWithCredentials(this.user, this.credentials);
