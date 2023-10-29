@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import 'package:scheduler_app/pages/app.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 
 import 'app.dart';
@@ -39,5 +40,6 @@ void main() async {
 
   Get.put(AuthService());
 
-  runApp(const MyApp());
+  runApp(const ReplyApp());
+  //runApp(const MyApp());
 }
