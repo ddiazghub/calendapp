@@ -17,16 +17,28 @@ dependencies:
   loggy: ^2.0.3
   json_annotation: ^4.8.1
   cloud_firestore_odm: ^1.0.0-dev.71
-ive_forms: ^16.1.1
+  reactive_forms: ^16.1.1
+  reactive_date_time_picker: ^3.0.0
+  adaptive_breakpoints: ^0.1.6
+  dual_screen: ^1.0.4
+  transparent_image: ^2.0.1
+  google_fonts: ^6.1.0
+  async: ^2.11.0
+  animations: ^2.0.8
+  reactive_awesome_select: ^2.0.0
+  moment_dart: ^1.1.0
+  table_calendar: ^3.0.9
+  curved_navigation_bar: ^1.0.3
+  image_picker: ^1.0.4
+  firebase_storage: ^11.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.2
+  flutter_lints: ^3.0.0
   build_runner: ^2.4.3
   json_serializable: ^6.7.1
   cloud_firestore_odm_generator: ^1.0.0-dev.58
-  reactive_date_time_picker: ^3.0.0
 
 dependency_overrides:
   graphs: 2.2.0

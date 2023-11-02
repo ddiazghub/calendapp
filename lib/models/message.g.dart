@@ -133,6 +133,8 @@ abstract class MessageDocumentReference
     FieldValue textFieldValue,
     String user,
     FieldValue userFieldValue,
+    String meeting,
+    FieldValue meetingFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -146,6 +148,8 @@ abstract class MessageDocumentReference
     FieldValue textFieldValue,
     String user,
     FieldValue userFieldValue,
+    String meeting,
+    FieldValue meetingFieldValue,
   });
 }
 
@@ -184,6 +188,8 @@ class _$MessageDocumentReference
     FieldValue? textFieldValue,
     Object? user = _sentinel,
     FieldValue? userFieldValue,
+    Object? meeting = _sentinel,
+    FieldValue? meetingFieldValue,
   }) async {
     assert(
       createdAt == _sentinel || createdAtFieldValue == null,
@@ -197,6 +203,10 @@ class _$MessageDocumentReference
       user == _sentinel || userFieldValue == null,
       "Cannot specify both user and userFieldValue",
     );
+    assert(
+      meeting == _sentinel || meetingFieldValue == null,
+      "Cannot specify both meeting and meetingFieldValue",
+    );
     final json = {
       if (createdAt != _sentinel)
         _$MessageFieldMap['createdAt']!:
@@ -211,6 +221,11 @@ class _$MessageDocumentReference
         _$MessageFieldMap['user']!:
             _$MessagePerFieldToJson.user(user as String),
       if (userFieldValue != null) _$MessageFieldMap['user']!: userFieldValue,
+      if (meeting != _sentinel)
+        _$MessageFieldMap['meeting']!:
+            _$MessagePerFieldToJson.meeting(meeting as String),
+      if (meetingFieldValue != null)
+        _$MessageFieldMap['meeting']!: meetingFieldValue,
     };
 
     return reference.update(json);
@@ -224,6 +239,8 @@ class _$MessageDocumentReference
     FieldValue? textFieldValue,
     Object? user = _sentinel,
     FieldValue? userFieldValue,
+    Object? meeting = _sentinel,
+    FieldValue? meetingFieldValue,
   }) {
     assert(
       createdAt == _sentinel || createdAtFieldValue == null,
@@ -236,6 +253,10 @@ class _$MessageDocumentReference
     assert(
       user == _sentinel || userFieldValue == null,
       "Cannot specify both user and userFieldValue",
+    );
+    assert(
+      meeting == _sentinel || meetingFieldValue == null,
+      "Cannot specify both meeting and meetingFieldValue",
     );
     final json = {
       if (createdAt != _sentinel)
@@ -251,6 +272,11 @@ class _$MessageDocumentReference
         _$MessageFieldMap['user']!:
             _$MessagePerFieldToJson.user(user as String),
       if (userFieldValue != null) _$MessageFieldMap['user']!: userFieldValue,
+      if (meeting != _sentinel)
+        _$MessageFieldMap['meeting']!:
+            _$MessagePerFieldToJson.meeting(meeting as String),
+      if (meetingFieldValue != null)
+        _$MessageFieldMap['meeting']!: meetingFieldValue,
     };
 
     transaction.update(reference, json);
@@ -385,6 +411,17 @@ abstract class MessageQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
+  MessageQuery whereMeeting({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  });
 
   MessageQuery orderByDocumentId({
     bool descending = false,
@@ -423,6 +460,18 @@ abstract class MessageQuery
   });
 
   MessageQuery orderByUser({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    MessageDocumentSnapshot? startAtDocument,
+    MessageDocumentSnapshot? endAtDocument,
+    MessageDocumentSnapshot? endBeforeDocument,
+    MessageDocumentSnapshot? startAfterDocument,
+  });
+
+  MessageQuery orderByMeeting({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -733,6 +782,47 @@ class _$MessageQuery extends QueryReference<Message, MessageQuerySnapshot>
     );
   }
 
+  MessageQuery whereMeeting({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  }) {
+    return _$MessageQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$MessageFieldMap['meeting']!,
+        isEqualTo: isEqualTo != null
+            ? _$MessagePerFieldToJson.meeting(isEqualTo)
+            : null,
+        isNotEqualTo: isNotEqualTo != null
+            ? _$MessagePerFieldToJson.meeting(isNotEqualTo)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$MessagePerFieldToJson.meeting(isLessThan)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$MessagePerFieldToJson.meeting(isLessThanOrEqualTo)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$MessagePerFieldToJson.meeting(isGreaterThan)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$MessagePerFieldToJson.meeting(isGreaterThanOrEqualTo)
+            : null,
+        isNull: isNull,
+        whereIn: whereIn?.map((e) => _$MessagePerFieldToJson.meeting(e)),
+        whereNotIn: whereNotIn?.map((e) => _$MessagePerFieldToJson.meeting(e)),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
   MessageQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -1021,6 +1111,78 @@ class _$MessageQuery extends QueryReference<Message, MessageQuerySnapshot>
     );
   }
 
+  MessageQuery orderByMeeting({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    MessageDocumentSnapshot? startAtDocument,
+    MessageDocumentSnapshot? endAtDocument,
+    MessageDocumentSnapshot? endBeforeDocument,
+    MessageDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$MessageFieldMap['meeting']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$MessageQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
   @override
   bool operator ==(Object other) {
     return other is _$MessageQuery &&
@@ -1121,30 +1283,33 @@ class MessageQueryDocumentSnapshot
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       json['text'] as String,
-      Converters.localTime(json['createdAt'] as Timestamp),
       json['user'] as String,
+      json['meeting'] as String,
+      Converters.localTime(json['createdAt'] as Timestamp),
     );
 
 const _$MessageFieldMap = <String, String>{
   'createdAt': 'createdAt',
   'text': 'text',
   'user': 'user',
+  'meeting': 'meeting',
 };
 
 // ignore: unused_element
 abstract class _$MessagePerFieldToJson {
   // ignore: unused_element
-  static Object? createdAt(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
+  static Object? createdAt(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
   static Object? text(String instance) => instance;
   // ignore: unused_element
   static Object? user(String instance) => instance;
+  // ignore: unused_element
+  static Object? meeting(String instance) => instance;
 }
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'createdAt':
-          const FirestoreDateTimeConverter().toJson(instance.createdAt),
+      'createdAt': Converters.timestamp(instance.createdAt),
       'text': instance.text,
       'user': instance.user,
+      'meeting': instance.meeting,
     };
