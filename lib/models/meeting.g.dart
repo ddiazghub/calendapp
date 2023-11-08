@@ -30,14 +30,14 @@ abstract class MeetingCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return Meeting.fromJson(snapshot.data()!);
+    return Meeting.fromJson({'id': snapshot.id, ...?snapshot.data()});
   }
 
   static Map<String, Object?> toFirestore(
     Meeting value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return {...value.toJson()}..remove('id');
   }
 
   @override
@@ -57,7 +57,7 @@ class _$MeetingCollectionReference extends _$MeetingQuery
     firestore ??= FirebaseFirestore.instance;
 
     return _$MeetingCollectionReference._(
-      firestore.collection('messages').withConverter(
+      firestore.collection('meetings').withConverter(
             fromFirestore: MeetingCollectionReference.fromFirestore,
             toFirestore: MeetingCollectionReference.toFirestore,
           ),
@@ -133,8 +133,8 @@ abstract class MeetingDocumentReference
     FieldValue startFieldValue,
     DateTime end,
     FieldValue endFieldValue,
-    String name,
-    FieldValue nameFieldValue,
+    String title,
+    FieldValue titleFieldValue,
     String description,
     FieldValue descriptionFieldValue,
     String host,
@@ -156,8 +156,8 @@ abstract class MeetingDocumentReference
     FieldValue startFieldValue,
     DateTime end,
     FieldValue endFieldValue,
-    String name,
-    FieldValue nameFieldValue,
+    String title,
+    FieldValue titleFieldValue,
     String description,
     FieldValue descriptionFieldValue,
     String host,
@@ -204,8 +204,8 @@ class _$MeetingDocumentReference
     FieldValue? startFieldValue,
     Object? end = _sentinel,
     FieldValue? endFieldValue,
-    Object? name = _sentinel,
-    FieldValue? nameFieldValue,
+    Object? title = _sentinel,
+    FieldValue? titleFieldValue,
     Object? description = _sentinel,
     FieldValue? descriptionFieldValue,
     Object? host = _sentinel,
@@ -228,8 +228,8 @@ class _$MeetingDocumentReference
       "Cannot specify both end and endFieldValue",
     );
     assert(
-      name == _sentinel || nameFieldValue == null,
-      "Cannot specify both name and nameFieldValue",
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
     );
     assert(
       description == _sentinel || descriptionFieldValue == null,
@@ -260,10 +260,10 @@ class _$MeetingDocumentReference
       if (end != _sentinel)
         _$MeetingFieldMap['end']!: _$MeetingPerFieldToJson.end(end as DateTime),
       if (endFieldValue != null) _$MeetingFieldMap['end']!: endFieldValue,
-      if (name != _sentinel)
-        _$MeetingFieldMap['name']!:
-            _$MeetingPerFieldToJson.name(name as String),
-      if (nameFieldValue != null) _$MeetingFieldMap['name']!: nameFieldValue,
+      if (title != _sentinel)
+        _$MeetingFieldMap['title']!:
+            _$MeetingPerFieldToJson.title(title as String),
+      if (titleFieldValue != null) _$MeetingFieldMap['title']!: titleFieldValue,
       if (description != _sentinel)
         _$MeetingFieldMap['description']!:
             _$MeetingPerFieldToJson.description(description as String),
@@ -296,8 +296,8 @@ class _$MeetingDocumentReference
     FieldValue? startFieldValue,
     Object? end = _sentinel,
     FieldValue? endFieldValue,
-    Object? name = _sentinel,
-    FieldValue? nameFieldValue,
+    Object? title = _sentinel,
+    FieldValue? titleFieldValue,
     Object? description = _sentinel,
     FieldValue? descriptionFieldValue,
     Object? host = _sentinel,
@@ -320,8 +320,8 @@ class _$MeetingDocumentReference
       "Cannot specify both end and endFieldValue",
     );
     assert(
-      name == _sentinel || nameFieldValue == null,
-      "Cannot specify both name and nameFieldValue",
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
     );
     assert(
       description == _sentinel || descriptionFieldValue == null,
@@ -352,10 +352,10 @@ class _$MeetingDocumentReference
       if (end != _sentinel)
         _$MeetingFieldMap['end']!: _$MeetingPerFieldToJson.end(end as DateTime),
       if (endFieldValue != null) _$MeetingFieldMap['end']!: endFieldValue,
-      if (name != _sentinel)
-        _$MeetingFieldMap['name']!:
-            _$MeetingPerFieldToJson.name(name as String),
-      if (nameFieldValue != null) _$MeetingFieldMap['name']!: nameFieldValue,
+      if (title != _sentinel)
+        _$MeetingFieldMap['title']!:
+            _$MeetingPerFieldToJson.title(title as String),
+      if (titleFieldValue != null) _$MeetingFieldMap['title']!: titleFieldValue,
       if (description != _sentinel)
         _$MeetingFieldMap['description']!:
             _$MeetingPerFieldToJson.description(description as String),
@@ -509,7 +509,7 @@ abstract class MeetingQuery
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
   });
-  MeetingQuery whereName({
+  MeetingQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -613,7 +613,7 @@ abstract class MeetingQuery
     MeetingDocumentSnapshot? startAfterDocument,
   });
 
-  MeetingQuery orderByName({
+  MeetingQuery orderByTitle({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -971,7 +971,7 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
     );
   }
 
-  MeetingQuery whereName({
+  MeetingQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -985,27 +985,27 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
     return _$MeetingQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$MeetingFieldMap['name']!,
+        _$MeetingFieldMap['title']!,
         isEqualTo:
-            isEqualTo != null ? _$MeetingPerFieldToJson.name(isEqualTo) : null,
+            isEqualTo != null ? _$MeetingPerFieldToJson.title(isEqualTo) : null,
         isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.name(isNotEqualTo)
+            ? _$MeetingPerFieldToJson.title(isNotEqualTo)
             : null,
         isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.name(isLessThan)
+            ? _$MeetingPerFieldToJson.title(isLessThan)
             : null,
         isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.name(isLessThanOrEqualTo)
+            ? _$MeetingPerFieldToJson.title(isLessThanOrEqualTo)
             : null,
         isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.name(isGreaterThan)
+            ? _$MeetingPerFieldToJson.title(isGreaterThan)
             : null,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.name(isGreaterThanOrEqualTo)
+            ? _$MeetingPerFieldToJson.title(isGreaterThanOrEqualTo)
             : null,
         isNull: isNull,
-        whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.name(e)),
-        whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.name(e)),
+        whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.title(e)),
+        whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.title(e)),
       ),
       $queryCursor: $queryCursor,
     );
@@ -1469,7 +1469,7 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
     );
   }
 
-  MeetingQuery orderByName({
+  MeetingQuery orderByTitle({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1480,7 +1480,7 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
     MeetingDocumentSnapshot? endBeforeDocument,
     MeetingDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$MeetingFieldMap['name']!,
+    final query = $referenceWithoutCursor.orderBy(_$MeetingFieldMap['title']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -1928,7 +1928,7 @@ class MeetingQueryDocumentSnapshot
 // **************************************************************************
 
 Meeting _$MeetingFromJson(Map<String, dynamic> json) => Meeting(
-      json['name'] as String,
+      json['title'] as String,
       json['description'] as String,
       json['host'] as String,
       json['location'] as String,
@@ -1936,13 +1936,15 @@ Meeting _$MeetingFromJson(Map<String, dynamic> json) => Meeting(
       Converters.localTime(json['start'] as Timestamp),
       Converters.localTime(json['end'] as Timestamp),
       Converters.localTime(json['createdAt'] as Timestamp),
+      id: json['id'] as String? ?? '',
     );
 
 const _$MeetingFieldMap = <String, String>{
   'createdAt': 'createdAt',
   'start': 'start',
   'end': 'end',
-  'name': 'name',
+  'id': 'id',
+  'title': 'title',
   'description': 'description',
   'host': 'host',
   'location': 'location',
@@ -1952,16 +1954,15 @@ const _$MeetingFieldMap = <String, String>{
 // ignore: unused_element
 abstract class _$MeetingPerFieldToJson {
   // ignore: unused_element
-  static Object? createdAt(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
+  static Object? createdAt(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
-  static Object? start(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
+  static Object? start(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
-  static Object? end(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
+  static Object? end(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
-  static Object? name(String instance) => instance;
+  static Object? id(String instance) => instance;
+  // ignore: unused_element
+  static Object? title(String instance) => instance;
   // ignore: unused_element
   static Object? description(String instance) => instance;
   // ignore: unused_element
@@ -1973,11 +1974,11 @@ abstract class _$MeetingPerFieldToJson {
 }
 
 Map<String, dynamic> _$MeetingToJson(Meeting instance) => <String, dynamic>{
-      'createdAt':
-          const FirestoreDateTimeConverter().toJson(instance.createdAt),
-      'start': const FirestoreDateTimeConverter().toJson(instance.start),
-      'end': const FirestoreDateTimeConverter().toJson(instance.end),
-      'name': instance.name,
+      'createdAt': Converters.timestamp(instance.createdAt),
+      'start': Converters.timestamp(instance.start),
+      'end': Converters.timestamp(instance.end),
+      'id': instance.id,
+      'title': instance.title,
       'description': instance.description,
       'host': instance.host,
       'location': instance.location,

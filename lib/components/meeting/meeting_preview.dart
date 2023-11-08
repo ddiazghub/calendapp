@@ -1,39 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:scheduler_app/components/mail_preview_action_bar.dart';
-import 'package:scheduler_app/models/email_store.dart';
-import 'picture_preview.dart';
-import 'package:scheduler_app/models/email_model.dart';
+import 'package:moment_dart/moment_dart.dart';
+import 'package:scheduler_app/components/meeting/meeting_action_bar.dart';
+import 'package:scheduler_app/components/query_builder.dart';
+import 'package:scheduler_app/models/meeting.dart';
+import 'package:scheduler_app/models/user.dart';
 
-class MailPreview extends StatelessWidget {
-  const MailPreview({super.key, 
-    required this.id,
-    required this.email,
+class MeetingPreview extends StatelessWidget {
+  const MeetingPreview({
+    super.key,
+    required this.meeting,
     required this.onTap,
-    this.onStar,
-    this.onDelete,
   });
 
-  final int id;
-  final Email email;
+  final Meeting meeting;
   final VoidCallback onTap;
-  final VoidCallback? onStar;
-  final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    var emailStore = Provider.of<EmailStore>(
-      context,
-      listen: false,
-    );
 
     return InkWell(
       onTap: () {
-        Provider.of<EmailStore>(
-          context,
-          listen: false,
-        ).selectedEmailId = id;
+        //model.selectedMeetingId = id;
         onTap();
       },
       child: LayoutBuilder(
@@ -55,22 +43,33 @@ class MailPreview extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            Text(meeting.title, style: textTheme.headlineSmall),
+                            const SizedBox(height: 4),
                             Text(
-                              '${email.sender} - ${email.time}',
+                              switch (meeting.status) {
+                                MeetingStatus.scheduled =>
+                                  'Meeting ${Moment(meeting.start).fromNow()} at ${meeting.location}',
+                                MeetingStatus.started =>
+                                  'Meeting in progress at ${meeting.location}',
+                                MeetingStatus.ended =>
+                                  'Meeting ${Moment(meeting.end).fromNow()} at ${meeting.location}',
+                              },
                               style: textTheme.bodySmall,
                             ),
-                            const SizedBox(height: 4),
-                            Text(email.subject, style: textTheme.headlineSmall),
                             const SizedBox(height: 16),
                           ],
                         ),
                       ),
-                      MailPreviewActionBar(
-                        avatar: email.avatar,
-                        isStarred: emailStore.isEmailStarred(email.id),
-                        onStar: onStar,
-                        onDelete: onDelete,
-                      ),
+                      QueryBuilder(
+                          ref: UserRef.whereUid(
+                            whereIn: [meeting.host, ...meeting.invitees],
+                          ),
+                          builder: (context, snapshot) {
+                            return MeetingActionBar(
+                              meeting: meeting,
+                              participants: snapshot.docs.map((e) => e.data),
+                            );
+                          }),
                     ],
                   ),
                   Padding(
@@ -78,23 +77,12 @@ class MailPreview extends StatelessWidget {
                       end: 20,
                     ),
                     child: Text(
-                      email.message,
+                      meeting.description,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: textTheme.bodyMedium,
                     ),
                   ),
-                  if (email.containsPictures) ...[
-                    const Flexible(
-                      fit: FlexFit.loose,
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          PicturePreview(),
-                        ],
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({
     super.key,
-    required this.avatar,
+    required this.url,
     this.radius = 20,
   });
 
-  final String avatar;
+  final String url;
   final double radius;
 
   @override
@@ -18,10 +18,9 @@ class ProfileAvatar extends StatelessWidget {
         radius: radius,
         backgroundColor: Theme.of(context).cardColor,
         child: ClipOval(
-          child: Image.asset(
-            avatar,
+          child: Image.network(
+            url,
             gaplessPlayback: true,
-            package: 'flutter_gallery_assets',
             height: 42,
             width: 42,
             fit: BoxFit.cover,

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'firestore_serializable.dart';
+import 'package:scheduler_app/models/annotations.dart';
+import 'package:scheduler_app/helpers.dart';
 
 part 'user.g.dart';
 
@@ -11,9 +11,11 @@ class BaseUser {
 
   final String email;
   final String name;
-  final DateTime birthday;
   final String phone;
   final String image;
+
+  @DateTimeField
+  final DateTime birthday;
 }
 
 @FirestoreSerializable
@@ -42,10 +44,3 @@ class UserData extends BaseUser {
 @Collection<UserData>('users')
 final UserRef =
     UserDataCollectionReference();
-
-class UserWithCredentials {
-  UserWithCredentials(this.user, this.credentials);
-
-  final UserData user;
-  final UserCredential credentials;
-}

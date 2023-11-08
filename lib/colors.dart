@@ -35,4 +35,9 @@ class AppColors {
   static const Color darkCardBackground = Color(0xFF1E1E1E);
   static const Color darkChipBackground = Color(0xFF2A2A2A);
   static const Color lightChipBackground = Color(0xFFE5E5E5);
+
+}
+
+extension ColorExtensions on Color {
+  Color lighten(double by) => Color.lerp(this, Colors.white, by)!;
 }

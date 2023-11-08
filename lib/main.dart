@@ -4,8 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import 'package:scheduler_app/pages/app.dart';
+import 'package:scheduler_app/pages/calendar_page.dart';
+import 'package:scheduler_app/pages/sign_up_page.dart';
 import 'package:scheduler_app/services/auth_service.dart';
+import 'package:scheduler_app/services/avatar_service.dart';
+import 'package:scheduler_app/services/meeting_service.dart';
+import 'package:scheduler_app/services/user_service.dart';
 
 import 'app.dart';
 import 'firebase_options.dart';
@@ -13,9 +17,13 @@ import 'firebase_options.dart';
 const darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void onAuthStateChange(User? user) {
+  final AuthService auth = Get.find();
+  
   if (user == null) {
+    auth.user = null;
     logInfo('User is currently signed out!');
   } else {
+    auth.user = user;
     logInfo('User is signed in!');
   }
 }
@@ -35,11 +43,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseAuth.instance.authStateChanges().listen(onAuthStateChange);
+  FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
   FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
 
   Get.put(AuthService());
+  Get.put(AvatarService());
+  Get.put(UserService());
+  Get.put(MeetingService());
+  Get.put(CalendarController());
+  Get.put(ImagePickController());
 
-  runApp(const ReplyApp());
+  runApp(const SchedulerApp());
   //runApp(const MyApp());
 }

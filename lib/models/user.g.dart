@@ -133,12 +133,12 @@ abstract class UserDataDocumentReference
     FieldValue emailFieldValue,
     String name,
     FieldValue nameFieldValue,
-    DateTime birthday,
-    FieldValue birthdayFieldValue,
     String phone,
     FieldValue phoneFieldValue,
     String image,
     FieldValue imageFieldValue,
+    DateTime birthday,
+    FieldValue birthdayFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -152,12 +152,12 @@ abstract class UserDataDocumentReference
     FieldValue emailFieldValue,
     String name,
     FieldValue nameFieldValue,
-    DateTime birthday,
-    FieldValue birthdayFieldValue,
     String phone,
     FieldValue phoneFieldValue,
     String image,
     FieldValue imageFieldValue,
+    DateTime birthday,
+    FieldValue birthdayFieldValue,
   });
 }
 
@@ -196,12 +196,12 @@ class _$UserDataDocumentReference
     FieldValue? emailFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
-    Object? birthday = _sentinel,
-    FieldValue? birthdayFieldValue,
     Object? phone = _sentinel,
     FieldValue? phoneFieldValue,
     Object? image = _sentinel,
     FieldValue? imageFieldValue,
+    Object? birthday = _sentinel,
+    FieldValue? birthdayFieldValue,
   }) async {
     assert(
       uid == _sentinel || uidFieldValue == null,
@@ -216,16 +216,16 @@ class _$UserDataDocumentReference
       "Cannot specify both name and nameFieldValue",
     );
     assert(
-      birthday == _sentinel || birthdayFieldValue == null,
-      "Cannot specify both birthday and birthdayFieldValue",
-    );
-    assert(
       phone == _sentinel || phoneFieldValue == null,
       "Cannot specify both phone and phoneFieldValue",
     );
     assert(
       image == _sentinel || imageFieldValue == null,
       "Cannot specify both image and imageFieldValue",
+    );
+    assert(
+      birthday == _sentinel || birthdayFieldValue == null,
+      "Cannot specify both birthday and birthdayFieldValue",
     );
     final json = {
       if (uid != _sentinel)
@@ -240,11 +240,6 @@ class _$UserDataDocumentReference
         _$UserDataFieldMap['name']!:
             _$UserDataPerFieldToJson.name(name as String),
       if (nameFieldValue != null) _$UserDataFieldMap['name']!: nameFieldValue,
-      if (birthday != _sentinel)
-        _$UserDataFieldMap['birthday']!:
-            _$UserDataPerFieldToJson.birthday(birthday as DateTime),
-      if (birthdayFieldValue != null)
-        _$UserDataFieldMap['birthday']!: birthdayFieldValue,
       if (phone != _sentinel)
         _$UserDataFieldMap['phone']!:
             _$UserDataPerFieldToJson.phone(phone as String),
@@ -255,6 +250,11 @@ class _$UserDataDocumentReference
             _$UserDataPerFieldToJson.image(image as String),
       if (imageFieldValue != null)
         _$UserDataFieldMap['image']!: imageFieldValue,
+      if (birthday != _sentinel)
+        _$UserDataFieldMap['birthday']!:
+            _$UserDataPerFieldToJson.birthday(birthday as DateTime),
+      if (birthdayFieldValue != null)
+        _$UserDataFieldMap['birthday']!: birthdayFieldValue,
     };
 
     return reference.update(json);
@@ -268,12 +268,12 @@ class _$UserDataDocumentReference
     FieldValue? emailFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
-    Object? birthday = _sentinel,
-    FieldValue? birthdayFieldValue,
     Object? phone = _sentinel,
     FieldValue? phoneFieldValue,
     Object? image = _sentinel,
     FieldValue? imageFieldValue,
+    Object? birthday = _sentinel,
+    FieldValue? birthdayFieldValue,
   }) {
     assert(
       uid == _sentinel || uidFieldValue == null,
@@ -288,16 +288,16 @@ class _$UserDataDocumentReference
       "Cannot specify both name and nameFieldValue",
     );
     assert(
-      birthday == _sentinel || birthdayFieldValue == null,
-      "Cannot specify both birthday and birthdayFieldValue",
-    );
-    assert(
       phone == _sentinel || phoneFieldValue == null,
       "Cannot specify both phone and phoneFieldValue",
     );
     assert(
       image == _sentinel || imageFieldValue == null,
       "Cannot specify both image and imageFieldValue",
+    );
+    assert(
+      birthday == _sentinel || birthdayFieldValue == null,
+      "Cannot specify both birthday and birthdayFieldValue",
     );
     final json = {
       if (uid != _sentinel)
@@ -312,11 +312,6 @@ class _$UserDataDocumentReference
         _$UserDataFieldMap['name']!:
             _$UserDataPerFieldToJson.name(name as String),
       if (nameFieldValue != null) _$UserDataFieldMap['name']!: nameFieldValue,
-      if (birthday != _sentinel)
-        _$UserDataFieldMap['birthday']!:
-            _$UserDataPerFieldToJson.birthday(birthday as DateTime),
-      if (birthdayFieldValue != null)
-        _$UserDataFieldMap['birthday']!: birthdayFieldValue,
       if (phone != _sentinel)
         _$UserDataFieldMap['phone']!:
             _$UserDataPerFieldToJson.phone(phone as String),
@@ -327,6 +322,11 @@ class _$UserDataDocumentReference
             _$UserDataPerFieldToJson.image(image as String),
       if (imageFieldValue != null)
         _$UserDataFieldMap['image']!: imageFieldValue,
+      if (birthday != _sentinel)
+        _$UserDataFieldMap['birthday']!:
+            _$UserDataPerFieldToJson.birthday(birthday as DateTime),
+      if (birthdayFieldValue != null)
+        _$UserDataFieldMap['birthday']!: birthdayFieldValue,
     };
 
     transaction.update(reference, json);
@@ -461,17 +461,6 @@ abstract class UserDataQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  UserDataQuery whereBirthday({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<DateTime>? whereIn,
-    List<DateTime>? whereNotIn,
-  });
   UserDataQuery wherePhone({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -493,6 +482,17 @@ abstract class UserDataQuery
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
+  });
+  UserDataQuery whereBirthday({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
   });
 
   UserDataQuery orderByDocumentId({
@@ -543,18 +543,6 @@ abstract class UserDataQuery
     UserDataDocumentSnapshot? startAfterDocument,
   });
 
-  UserDataQuery orderByBirthday({
-    bool descending = false,
-    DateTime startAt,
-    DateTime startAfter,
-    DateTime endAt,
-    DateTime endBefore,
-    UserDataDocumentSnapshot? startAtDocument,
-    UserDataDocumentSnapshot? endAtDocument,
-    UserDataDocumentSnapshot? endBeforeDocument,
-    UserDataDocumentSnapshot? startAfterDocument,
-  });
-
   UserDataQuery orderByPhone({
     bool descending = false,
     String startAt,
@@ -573,6 +561,18 @@ abstract class UserDataQuery
     String startAfter,
     String endAt,
     String endBefore,
+    UserDataDocumentSnapshot? startAtDocument,
+    UserDataDocumentSnapshot? endAtDocument,
+    UserDataDocumentSnapshot? endBeforeDocument,
+    UserDataDocumentSnapshot? startAfterDocument,
+  });
+
+  UserDataQuery orderByBirthday({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
     UserDataDocumentSnapshot? startAtDocument,
     UserDataDocumentSnapshot? endAtDocument,
     UserDataDocumentSnapshot? endBeforeDocument,
@@ -879,48 +879,6 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
     );
   }
 
-  UserDataQuery whereBirthday({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<DateTime>? whereIn,
-    List<DateTime>? whereNotIn,
-  }) {
-    return _$UserDataQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$UserDataFieldMap['birthday']!,
-        isEqualTo: isEqualTo != null
-            ? _$UserDataPerFieldToJson.birthday(isEqualTo)
-            : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$UserDataPerFieldToJson.birthday(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$UserDataPerFieldToJson.birthday(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$UserDataPerFieldToJson.birthday(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$UserDataPerFieldToJson.birthday(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$UserDataPerFieldToJson.birthday(isGreaterThanOrEqualTo)
-            : null,
-        isNull: isNull,
-        whereIn: whereIn?.map((e) => _$UserDataPerFieldToJson.birthday(e)),
-        whereNotIn:
-            whereNotIn?.map((e) => _$UserDataPerFieldToJson.birthday(e)),
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
   UserDataQuery wherePhone({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -998,6 +956,48 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$UserDataPerFieldToJson.image(e)),
         whereNotIn: whereNotIn?.map((e) => _$UserDataPerFieldToJson.image(e)),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  UserDataQuery whereBirthday({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  }) {
+    return _$UserDataQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserDataFieldMap['birthday']!,
+        isEqualTo: isEqualTo != null
+            ? _$UserDataPerFieldToJson.birthday(isEqualTo)
+            : null,
+        isNotEqualTo: isNotEqualTo != null
+            ? _$UserDataPerFieldToJson.birthday(isNotEqualTo)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserDataPerFieldToJson.birthday(isLessThan)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserDataPerFieldToJson.birthday(isLessThanOrEqualTo)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserDataPerFieldToJson.birthday(isGreaterThan)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserDataPerFieldToJson.birthday(isGreaterThanOrEqualTo)
+            : null,
+        isNull: isNull,
+        whereIn: whereIn?.map((e) => _$UserDataPerFieldToJson.birthday(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$UserDataPerFieldToJson.birthday(e)),
       ),
       $queryCursor: $queryCursor,
     );
@@ -1291,78 +1291,6 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
     );
   }
 
-  UserDataQuery orderByBirthday({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    UserDataDocumentSnapshot? startAtDocument,
-    UserDataDocumentSnapshot? endAtDocument,
-    UserDataDocumentSnapshot? endBeforeDocument,
-    UserDataDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor
-        .orderBy(_$UserDataFieldMap['birthday']!, descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$UserDataQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
   UserDataQuery orderByPhone({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -1448,6 +1376,78 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
   }) {
     final query = $referenceWithoutCursor.orderBy(_$UserDataFieldMap['image']!,
         descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserDataQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  UserDataQuery orderByBirthday({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserDataDocumentSnapshot? startAtDocument,
+    UserDataDocumentSnapshot? endAtDocument,
+    UserDataDocumentSnapshot? endBeforeDocument,
+    UserDataDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$UserDataFieldMap['birthday']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -1609,8 +1609,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       json['uid'] as String,
       json['email'] as String,
       json['name'] as String,
-      const FirestoreDateTimeConverter()
-          .fromJson(json['birthday'] as Timestamp),
+      Converters.localTime(json['birthday'] as Timestamp),
       json['phone'] as String,
       json['image'] as String,
     );
@@ -1618,9 +1617,9 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
 const _$UserDataFieldMap = <String, String>{
   'email': 'email',
   'name': 'name',
-  'birthday': 'birthday',
   'phone': 'phone',
   'image': 'image',
+  'birthday': 'birthday',
   'uid': 'uid',
 };
 
@@ -1631,12 +1630,11 @@ abstract class _$UserDataPerFieldToJson {
   // ignore: unused_element
   static Object? name(String instance) => instance;
   // ignore: unused_element
-  static Object? birthday(DateTime instance) =>
-      const FirestoreDateTimeConverter().toJson(instance);
-  // ignore: unused_element
   static Object? phone(String instance) => instance;
   // ignore: unused_element
   static Object? image(String instance) => instance;
+  // ignore: unused_element
+  static Object? birthday(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
   static Object? uid(String instance) => instance;
 }
@@ -1644,8 +1642,8 @@ abstract class _$UserDataPerFieldToJson {
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'email': instance.email,
       'name': instance.name,
-      'birthday': const FirestoreDateTimeConverter().toJson(instance.birthday),
       'phone': instance.phone,
       'image': instance.image,
+      'birthday': Converters.timestamp(instance.birthday),
       'uid': instance.uid,
     };
