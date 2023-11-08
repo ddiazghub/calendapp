@@ -18,13 +18,13 @@ class AppView extends StatelessWidget {
   final NavigationTab? currentTab;
 
   static void navigate(int index) {
-                          final destination = Destination.defaults[index];
+    final destination = Destination.defaults[index];
 
-                          if (destination.type == NavigationTab.logout) {
-                            Get.find<AuthService>().logOut();
-                          } else {
-                            Get.toNamed(destination.type.route);
-                          }
+    if (destination.type == NavigationTab.logout) {
+      Get.find<AuthService>().logOut();
+    } else {
+      Get.toNamed(destination.type.route);
+    }
   }
 
   @override
@@ -42,53 +42,48 @@ class DesktopView extends AppView {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Row(
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Container(
-                color: Theme.of(context).navigationRailTheme.backgroundColor,
-                child: SingleChildScrollView(
-                  clipBehavior: Clip.antiAlias,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        destinations: [
-                          for (var destination in Destination.defaults)
-                            NavigationRailDestination(
-                              icon: Material(
-                                color: Colors.transparent,
-                                child: destination.icon,
-                              ),
-                              label: Text(destination.textLabel),
-                            ),
-                        ],
-                        extended: false,
-                        labelType: NavigationRailLabelType.all,
-                        leading: const _NavigationRailHeader(),
-                        selectedIndex: currentTab?.index,
-                        onDestinationSelected: AppView.navigate,
+      body: Container(
+        height: size.height,
+        width: size.width,
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Row(
+          children: [
+            NavigationRail(
+              selectedIndex: currentTab?.index ?? 0,
+              backgroundColor: theme.bottomAppBarTheme.color!,
+              labelType: NavigationRailLabelType.all,
+              leading: const _NavigationRailHeader(),
+              onDestinationSelected: AppView.navigate,
+              extended: false,
+              destinations: [
+                for (final destination in Destination.defaults)
+                  NavigationRailDestination(
+                    icon: Tooltip(
+                      message: destination.textLabel,
+                      child: RotatedBox(
+                        quarterTurns: 4,
+                        child: destination.icon,
                       ),
                     ),
+                    label: Text(destination.textLabel),
                   ),
+              ],
+            ),
+            const VerticalDivider(thickness: 1, width: 1),
+            Expanded(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1300),
+                  child: child,
                 ),
-              );
-            },
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1340),
-                child: child,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -103,8 +98,9 @@ class MobileView extends AppView {
 
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-      index: currentTab?.index ?? 0,
-      color: theme.bottomAppBarTheme.color!,
+        backgroundColor: Colors.white,
+        index: currentTab?.index ?? 0,
+        color: theme.bottomAppBarTheme.color!,
         items: [
           for (final destination in Destination.defaults)
             Tooltip(message: destination.textLabel, child: destination.icon)
@@ -146,6 +142,7 @@ class _FadeThroughTransitionSwitcher extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _NavigationRailHeader extends StatelessWidget {
   const _NavigationRailHeader();
 

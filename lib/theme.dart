@@ -5,46 +5,52 @@ import 'colors.dart';
 
 ThemeData appTheme(BuildContext context) {
   final base = ThemeData.dark();
-
   return base.copyWith(
-    bottomAppBarTheme: const BottomAppBarTheme(
-      color: AppColors.darkBottomAppBarBackground,
-    ),
-    bottomSheetTheme: BottomSheetThemeData(
-      backgroundColor: AppColors.darkDrawerBackground,
-      modalBackgroundColor: Colors.black.withOpacity(0.7),
-    ),
-    navigationRailTheme: NavigationRailThemeData(
-      backgroundColor: AppColors.darkBottomAppBarBackground,
-      selectedIconTheme: const IconThemeData(color: AppColors.orange300),
-      selectedLabelTextStyle: GoogleFonts.workSansTextTheme().headlineSmall!.copyWith(color: AppColors.orange300),
-      unselectedIconTheme: const IconThemeData(color: AppColors.greyLabel),
-      unselectedLabelTextStyle: GoogleFonts.workSansTextTheme().headlineSmall!.copyWith(color: AppColors.greyLabel),
-    ),
-    canvasColor: AppColors.black900,
-    cardColor: AppColors.darkCardBackground,
-    chipTheme: _buildChipTheme(
-      AppColors.blue200,
-      AppColors.darkChipBackground,
-      Brightness.dark,
-    ),
-    colorScheme: const ColorScheme.dark(
-      primary: AppColors.blue200,
-      primaryContainer: AppColors.blue300,
-      secondary: AppColors.orange300,
-      secondaryContainer: AppColors.orange300,
-      surface: AppColors.black800,
-      error: AppColors.red200,
-      onPrimary: AppColors.black900,
-      onSecondary: AppColors.black900,
-      onBackground: AppColors.white50,
-      onSurface: AppColors.white50,
-      onError: AppColors.black900,
-      background: AppColors.black900Alpha087,
-    ),
-    textTheme: _buildDarkTextTheme(base.textTheme),
-    scaffoldBackgroundColor: AppColors.black900,
-  );
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: Color.fromARGB(255, 255, 3, 3),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: AppColors.darkDrawerBackground,
+        modalBackgroundColor:
+            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: const Color.fromARGB(255, 255, 3, 3),
+        selectedIconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 12, 12, 12)),
+        selectedLabelTextStyle: GoogleFonts.workSansTextTheme()
+            .headlineSmall!
+            .copyWith(color: const Color.fromARGB(255, 0, 0, 0)),
+        unselectedIconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 10, 10, 10)),
+        unselectedLabelTextStyle: GoogleFonts.workSansTextTheme()
+            .headlineSmall!
+            .copyWith(color: const Color.fromARGB(255, 7, 4, 4)),
+      ),
+      canvasColor: const Color.fromARGB(255, 14, 13, 13),
+      cardColor: AppColors.darkCardBackground,
+      chipTheme: _buildChipTheme(
+        const Color.fromARGB(255, 0, 6, 8),
+        AppColors.darkChipBackground,
+        Brightness.dark,
+      ),
+      colorScheme: const ColorScheme.dark(
+          primary: Color.fromARGB(255, 255, 3, 3),
+          primaryContainer: Color.fromARGB(255, 4, 7, 8),
+          secondary: Color.fromARGB(255, 255, 255, 255),
+          secondaryContainer: AppColors.orange300,
+          surface: AppColors.black800,
+          error: AppColors.red200,
+          onPrimary: AppColors.black900,
+          onSecondary: AppColors.black900,
+          onBackground: Color.fromARGB(255, 248, 248, 248),
+          onSurface: Color.fromARGB(255, 0, 0, 0), //no cambiar
+          onError: AppColors.black900,
+          background: Color.fromARGB(222, 247, 206, 206)),
+      textTheme: _buildDarkTextTheme(base.textTheme),
+      scaffoldBackgroundColor:
+          const Color.fromARGB(248, 255, 255, 255) //no cambiar
+      );
 }
 
 ChipThemeData _buildChipTheme(
@@ -59,9 +65,10 @@ ChipThemeData _buildChipTheme(
     secondarySelectedColor: chipBackground,
     padding: const EdgeInsets.all(4),
     shape: const StadiumBorder(),
-    labelStyle: GoogleFonts.workSansTextTheme()
-        .bodyMedium!
-        .copyWith(color: brightness == Brightness.dark ? AppColors.white50 : AppColors.black900),
+    labelStyle: GoogleFonts.workSansTextTheme().bodyMedium!.copyWith(
+        color: brightness == Brightness.dark
+            ? const Color.fromARGB(255, 7, 7, 7)
+            : AppColors.black900),
     secondaryLabelStyle: GoogleFonts.workSansTextTheme().bodyMedium,
     brightness: brightness,
   );
@@ -74,43 +81,43 @@ TextTheme _buildDarkTextTheme(TextTheme base) {
       fontSize: 34,
       letterSpacing: letterSpacingOrNone(0.4),
       height: 0.9,
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 20, 20, 20),
     ),
     headlineSmall: GoogleFonts.workSans(
       fontWeight: FontWeight.bold,
       fontSize: 24,
       letterSpacing: letterSpacingOrNone(0.27),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 24, 22, 22),
     ),
     titleLarge: GoogleFonts.workSans(
       fontWeight: FontWeight.w600,
       fontSize: 20,
       letterSpacing: letterSpacingOrNone(0.18),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 12, 11, 11),
     ),
     titleSmall: GoogleFonts.workSans(
       fontWeight: FontWeight.w600,
       fontSize: 14,
       letterSpacing: letterSpacingOrNone(-0.04),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 7, 7, 7),
     ),
     bodyLarge: GoogleFonts.workSans(
       fontWeight: FontWeight.normal,
       fontSize: 18,
       letterSpacing: letterSpacingOrNone(0.2),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 15, 15, 15),
     ),
     bodyMedium: GoogleFonts.workSans(
       fontWeight: FontWeight.normal,
       fontSize: 14,
       letterSpacing: letterSpacingOrNone(-0.05),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 15, 15, 15),
     ),
     bodySmall: GoogleFonts.workSans(
       fontWeight: FontWeight.normal,
       fontSize: 12,
       letterSpacing: letterSpacingOrNone(0.2),
-      color: AppColors.white50,
+      color: const Color.fromARGB(255, 14, 13, 13),
     ),
   );
 }

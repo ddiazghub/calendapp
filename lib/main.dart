@@ -18,7 +18,7 @@ const darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void onAuthStateChange(User? user) {
   final AuthService auth = Get.find();
-  
+
   if (user == null) {
     auth.user = null;
     logInfo('User is currently signed out!');

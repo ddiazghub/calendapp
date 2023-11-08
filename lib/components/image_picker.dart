@@ -12,9 +12,7 @@ class AppImagePicker extends StatelessWidget {
   final picker = Get.find<ImagePickController>();
 
   Future<void> pickAvatar() async {
-    print('Before ${picker.image}');
     picker.image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    print('After ${picker.image}');
   }
 
   @override
@@ -51,7 +49,7 @@ class AppImagePicker extends StatelessWidget {
                     child: Center(
                       child: ElevatedButton(
                         onPressed: pickAvatar,
-                        child: const Text('Pick Avatar'),
+                        child: const Text(style: TextStyle(color: Colors.white), 'Pick Avatar'),
                       ),
                     ),
                   ),

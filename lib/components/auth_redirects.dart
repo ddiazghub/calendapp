@@ -27,7 +27,7 @@ class RequiresAuth extends StatelessWidget {
       builder: (context, user) {
         if (user == null) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Get.toNamed(Routes.login);
+            Get.offAllNamed(Routes.home);
           });
 
           return const Spinner();
@@ -53,7 +53,7 @@ class RequiresNoAuth extends StatelessWidget {
         }
 
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          Get.toNamed(Routes.home);
+          Get.offNamed(Routes.meetings);
         });
 
         return const Spinner();

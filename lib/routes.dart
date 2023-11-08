@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:scheduler_app/pages/calendar_page.dart';
+import 'package:scheduler_app/pages/inicio.dart';
 import 'package:scheduler_app/pages/profile_page.dart';
 import 'package:scheduler_app/pages/schedule_page.dart';
 import 'package:scheduler_app/pages/login_page.dart';
@@ -7,7 +8,7 @@ import 'package:scheduler_app/pages/meeting_page.dart';
 import 'package:scheduler_app/pages/sign_up_page.dart';
 
 enum NavigationTab {
-  home(Routes.home),
+  home(Routes.meetings),
   schedule(Routes.schedule),
   calendar(Routes.calendar),
   profile(Routes.profile),
@@ -20,6 +21,7 @@ enum NavigationTab {
 
 class Routes {
   static const String home = '/';
+  static const String meetings = '/meetings';
   static const String login = '/login';
   static const String signup = '/signup';
   static const String schedule = '/schedule';
@@ -30,6 +32,10 @@ class Routes {
     return [
       GetPage(
         name: home,
+        page: () => const Homepage(),
+      ),
+      GetPage(
+        name: meetings,
         page: () => const MeetingPage(),
       ),
       GetPage(
@@ -50,7 +56,7 @@ class Routes {
       ),
       GetPage(
         name: profile,
-        page: () => const ProfilePage(),
+        page: () => ProfilePage(),
       ),
     ];
   }

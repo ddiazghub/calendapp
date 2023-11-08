@@ -60,7 +60,7 @@ class SchedulePage extends GetView<MeetingService> {
               return Scaffold(
                 floatingActionButton: FloatingActionButton.extended(
                   heroTag: 'confirm',
-                  label: const Text('Confirm'),
+                  label: const Text('Confirmar'),
                   icon: const Icon(Icons.check),
                   onPressed: () {
                     if (form.valid) {
@@ -68,10 +68,12 @@ class SchedulePage extends GetView<MeetingService> {
                       final DateTime startTime = form.control('start').value;
                       final DateTime endTime = form.control('end').value;
                       final String title = form.control('title').value;
-                      final String description = form.control('description').value ?? '';
+                      final String description =
+                          form.control('description').value ?? '';
                       final String location = form.control('location').value;
                       final List<UserData> inv = form.control('invitees').value;
-                      final List<String> invitees = inv.map((user) => user.uid).toList();
+                      final List<String> invitees =
+                          inv.map((user) => user.uid).toList();
                       final DateTime start = date.copyWith(
                         hour: startTime.hour,
                         minute: startTime.minute,
@@ -105,7 +107,7 @@ class SchedulePage extends GetView<MeetingService> {
                         );
                       }
 
-                      Get.offNamed(Routes.home);
+                      Get.offNamed(Routes.meetings);
                     } else {
                       form.markAllAsTouched();
                     }

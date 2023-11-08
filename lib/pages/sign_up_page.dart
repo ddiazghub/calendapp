@@ -13,7 +13,9 @@ import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 import 'package:scheduler_app/services/avatar_service.dart';
 
+// ignore: must_be_immutable
 class SignUpPage extends GetView<AuthService> {
+  String? selectedValue;
   SignUpPage({super.key});
 
   final ImagePickController picker = Get.find();
@@ -23,6 +25,7 @@ class SignUpPage extends GetView<AuthService> {
     submit: Key('SubmitButton'),
     password: Key('PasswordField'),
     name: Key('NameField'),
+    rol: Key('RolField'),
     birthday: Key('BirthdayField'),
     phone: Key('PhoneField'),
     image: Key('ImageField'),
@@ -33,6 +36,9 @@ class SignUpPage extends GetView<AuthService> {
       'email': ['', Validators.required, Validators.email],
       'password': ['', Validators.required, Validators.minLength(8)],
       'name': ['', Validators.required],
+      'rol': FormControl<String>(validators: [
+        Validators.required,
+      ]),
       'birthday': FormControl<DateTime>(validators: [
         Validators.required,
         Validators.max(DateTime.now()),
@@ -44,6 +50,8 @@ class SignUpPage extends GetView<AuthService> {
   static InputDecoration decoration(String label, {Icon? icon}) {
     return InputDecoration(
       labelText: label,
+      labelStyle: const TextStyle(
+          color: Color.fromARGB(255, 148, 125, 125), fontSize: 20),
       helperText: '',
       helperStyle: const TextStyle(height: 0.7),
       errorStyle: const TextStyle(height: 0.7),
@@ -76,18 +84,64 @@ class SignUpPage extends GetView<AuthService> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                ReactiveDropdownField<String>(
+                                  formControlName: 'rol',
+                                  dropdownColor:
+                                      const Color.fromARGB(255, 255, 3, 3),
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: 'U1',
+                                      child: Text(
+                                        'Estudiante',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'U2',
+                                      child: Text(
+                                        'Profesor',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'U3',
+                                      child: Text(
+                                        'Coordinador',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'U4',
+                                      child: Text(
+                                        'Director',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'U5',
+                                      child: Text(
+                                        'Decano',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ],
+                                  decoration: decoration('Rol'),
+                                ),
+                                separator,
                                 ReactiveTextField<String>(
                                   key: keys.name,
                                   formControlName: 'name',
                                   textInputAction: TextInputAction.next,
-                                  decoration: decoration('name'),
+                                  decoration: decoration('Nombres'),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 separator,
                                 ReactiveTextField<String>(
                                   key: keys.email,
                                   formControlName: 'email',
                                   textInputAction: TextInputAction.next,
-                                  decoration: decoration('email'),
+                                  decoration: decoration('Correo'),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 separator,
                                 ReactiveTextField<String>(
@@ -95,33 +149,36 @@ class SignUpPage extends GetView<AuthService> {
                                   formControlName: 'password',
                                   obscureText: true,
                                   textInputAction: TextInputAction.next,
-                                  decoration: decoration('Password'),
+                                  decoration: decoration('Contraseña'),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 separator,
                                 ReactiveDateTimePicker(
                                   key: keys.birthday,
                                   formControlName: 'birthday',
                                   decoration: decoration(
-                                    'birthday',
+                                    'Fecha de Nacimiento',
                                     icon: const Icon(Icons.calendar_today),
                                   ),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 separator,
                                 ReactiveTextField<String>(
                                   key: keys.phone,
                                   formControlName: 'phone',
                                   textInputAction: TextInputAction.next,
-                                  decoration: decoration('phone'),
+                                  decoration: decoration('Teléfono'),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 separator,
                                 ElevatedButton(
-                                  key: keys.submit,
                                   onPressed: () async {
                                     if (form.valid) {
                                       logInfo(form.value);
                                       final avatar = Get.find<AvatarService>();
-                                      final url = await avatar.create(picker.image!);
-                                      
+                                      final url =
+                                          await avatar.create(picker.image!);
+
                                       final user = BaseUser(
                                         form.control('email').value,
                                         form.control('name').value,
@@ -129,15 +186,28 @@ class SignUpPage extends GetView<AuthService> {
                                         form.control('phone').value,
                                         url,
                                       );
-
                                       await controller.signUp(
                                           user, form.control('password').value);
-                                      Get.offAllNamed(Routes.home);
+                                      Get.offAllNamed(Routes.meetings);
                                     } else {
                                       form.markAllAsTouched();
                                     }
                                   },
-                                  child: const Text('Submit'),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 255, 3, 3)),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.all(15)),
+                                    alignment: Alignment.center,
+                                  ),
+                                  child: const Text(
+                                    'CREAR CUENTA',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Arial',
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
