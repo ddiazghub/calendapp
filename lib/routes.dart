@@ -44,7 +44,7 @@ class Routes {
       ),
       GetPage(
         name: signup,
-        page: () => SignUpPage(),
+        page: () => const SignUpPage(),
       ),
       GetPage(
         name: schedule,
@@ -56,7 +56,7 @@ class Routes {
       ),
       GetPage(
         name: profile,
-        page: () => ProfilePage(),
+        page: () => const ProfilePage(),
       ),
     ];
   }

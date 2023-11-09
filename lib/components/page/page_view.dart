@@ -40,6 +40,8 @@ class AppView extends StatelessWidget {
 class DesktopView extends AppView {
   const DesktopView({super.key, required super.child, super.currentTab});
 
+  static const unselectedColor = Color.fromRGBO(255, 164, 164, 1);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -58,6 +60,8 @@ class DesktopView extends AppView {
               labelType: NavigationRailLabelType.all,
               leading: const _NavigationRailHeader(),
               onDestinationSelected: AppView.navigate,
+              unselectedLabelTextStyle: const TextStyle(color: unselectedColor),
+              selectedLabelTextStyle: const TextStyle(color: Colors.white),
               extended: false,
               destinations: [
                 for (final destination in Destination.defaults)
@@ -66,7 +70,7 @@ class DesktopView extends AppView {
                       message: destination.textLabel,
                       child: RotatedBox(
                         quarterTurns: 4,
-                        child: destination.icon,
+                        child: Icon(destination.icon, color: Colors.white),
                       ),
                     ),
                     label: Text(destination.textLabel),
@@ -103,7 +107,10 @@ class MobileView extends AppView {
         color: theme.bottomAppBarTheme.color!,
         items: [
           for (final destination in Destination.defaults)
-            Tooltip(message: destination.textLabel, child: destination.icon)
+            Tooltip(
+              message: destination.textLabel,
+              child: Icon(destination.icon, color: Colors.white),
+            )
         ],
         onTap: AppView.navigate,
       ),
@@ -154,51 +161,23 @@ class _NavigationRailHeader extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
-        return Align(
+        return const Align(
           alignment: AlignmentDirectional.centerStart,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 56,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 6),
-                    InkWell(
-                      key: const ValueKey('ReplyLogo'),
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: Row(
-                        children: [
-                          const Logo(),
-                          const SizedBox(width: 10),
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            widthFactor: animation.value,
-                            child: Opacity(
-                              opacity: animation.value,
-                              child: Text(
-                                'REPLY',
-                                style: textTheme.bodyLarge!.copyWith(
-                                  color: AppColors.white50,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 18 * animation.value),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                height: 75,
+                child: Logo(),
               ),
-              const SizedBox(height: 20),
-              const Padding(
+              SizedBox(height: 15),
+              Padding(
                 padding: EdgeInsetsDirectional.only(
                   start: 8,
                 ),
                 child: _ReplyFab(extended: false),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
             ],
           ),
         );

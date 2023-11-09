@@ -16,8 +16,10 @@ class MeetingPage extends GetView<MeetingService> {
     final now = DateTime.now();
     controller.meetings = meetings;
 
-    final (toStart, ended) =
-        meetings.partition((meeting) => meeting.end.isAfter(now));
+    final (toStart, ended) = meetings.partition(
+      (meeting) => meeting.end.isAfter(now),
+    );
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -53,7 +55,7 @@ class MeetingPage extends GetView<MeetingService> {
   @override
   Widget build(BuildContext context) {
     return RequiresAuth(
-      builder: (context, session) {
+      builder: (context) {
         return AppView(
           currentTab: NavigationTab.home,
           child: MeetingBuilder(

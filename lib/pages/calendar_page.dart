@@ -53,7 +53,7 @@ class CalendarPage extends GetView<MeetingService> {
   @override
   Widget build(BuildContext context) {
     return RequiresAuth(
-      builder: (context, session) {
+      builder: (context) {
         return AppView(
           currentTab: NavigationTab.calendar,
           child: MeetingBuilder(

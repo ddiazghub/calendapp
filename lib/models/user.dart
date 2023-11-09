@@ -7,12 +7,24 @@ import 'package:scheduler_app/helpers.dart';
 part 'user.g.dart';
 
 class BaseUser {
-  BaseUser(this.email, this.name, this.birthday, this.phone, this.image);
+  BaseUser(
+    this.email,
+    this.name,
+    this.birthday,
+    this.phone,
+    this.image,
+    this.role, {
+    this.id = '',
+  });
+
+  @Id()
+  final String id;
 
   final String email;
   final String name;
   final String phone;
   final String image;
+  final String role;
 
   @DateTimeField
   final DateTime birthday;
@@ -20,8 +32,16 @@ class BaseUser {
 
 @FirestoreSerializable
 class UserData extends BaseUser {
-  UserData(this.uid, super.email, super.name, super.birthday, super.phone,
-      super.image);
+  UserData(
+    this.uid,
+    super.email,
+    super.name,
+    super.birthday,
+    super.phone,
+    super.image,
+    super.role, {
+    super.id,
+  });
 
   final String uid;
 
@@ -37,10 +57,10 @@ class UserData extends BaseUser {
       baseUser.birthday,
       baseUser.phone,
       baseUser.image,
+      baseUser.role,
     );
   }
 }
 
 @Collection<UserData>('users')
-final UserRef =
-    UserDataCollectionReference();
+final UserRef = UserDataCollectionReference();

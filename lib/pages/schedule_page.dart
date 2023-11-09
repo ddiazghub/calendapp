@@ -31,7 +31,7 @@ class SchedulePage extends GetView<MeetingService> {
           'location': [meeting?.location ?? '', Validators.required],
           'invitees': FormControl<List<UserData>>(
             value: [],
-            validators: [Validators.required, Validators.minLength(1)],
+            validators: [Validators.required],
           ),
           'date': FormControl(
             value: meeting?.start.copyWith(hour: 0, minute: 0, second: 0),
@@ -51,7 +51,7 @@ class SchedulePage extends GetView<MeetingService> {
     }
 
     return RequiresAuth(
-      builder: (context, session) {
+      builder: (context) {
         return AppView(
           currentTab: NavigationTab.schedule,
           child: ReactiveFormBuilder(
@@ -60,8 +60,23 @@ class SchedulePage extends GetView<MeetingService> {
               return Scaffold(
                 floatingActionButton: FloatingActionButton.extended(
                   heroTag: 'confirm',
-                  label: const Text('Confirmar'),
-                  icon: const Icon(Icons.check),
+                  label: const Text(
+                    'Confirmar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  backgroundColor: Colors.red,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     if (form.valid) {
                       final DateTime date = form.control('date').value;
@@ -118,17 +133,17 @@ class SchedulePage extends GetView<MeetingService> {
                   child: SizedBox(
                     height: double.infinity,
                     child: Material(
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white,
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            TitleRow(form: form),
+                            const TitleRow(),
                             const HDivider(),
                             const DateTimeRow(),
                             const HDivider(),
-                            const InviteesRow(),
+                            InviteesRow(invitees: meeting?.invitees),
                             const HDivider(),
                             const LocationRow(),
                             const HDivider(),

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class TitleRow extends StatelessWidget {
-  const TitleRow({super.key, required this.form});
-
-  final FormGroup form;
+  const TitleRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,8 @@ class TitleRow extends StatelessWidget {
               maxLines: 1,
               autofocus: false,
               style: theme.textTheme.titleLarge,
-              onSubmitted: (field) => form.focus('date'),
               decoration: InputDecoration.collapsed(
-                hintText: 'Title',
+                hintText: 'Título',
                 hintStyle: theme.textTheme.titleLarge!.copyWith(
                   color: theme.colorScheme.primary.withOpacity(0.5),
                 ),

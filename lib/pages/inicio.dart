@@ -11,6 +11,82 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const text = [
+      Text(
+        '¡Bienvenidos!',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Arial',
+          fontSize: 25,
+        ),
+      ),
+      Text(
+        'Agenda fácil y rápido con CalendApp',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Arial',
+          fontSize: 25,
+        ),
+      ),
+    ];
+
+    final buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => Get.toNamed(Routes.login),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              const Color.fromARGB(255, 255, 3, 3),
+            ),
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.all(15),
+            ),
+            alignment: Alignment.center,
+          ),
+          child: const Text(
+            'Iniciar sesión',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontFamily: 'Arial',
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        ElevatedButton(
+          onPressed: () => Get.toNamed(Routes.signup),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              Colors.white,
+            ),
+            shape: MaterialStateProperty.all(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                side: BorderSide(color: Colors.red, width: 1),
+              ),
+            ),
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.all(15),
+            ),
+            alignment: Alignment.center,
+          ),
+          child: const Text(
+            'Crear cuenta',
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 18,
+              fontFamily: 'Arial',
+            ),
+          ),
+        ),
+      ],
+    );
+
     return RequiresNoAuth(
       builder: (context) {
         return AppView(
@@ -18,103 +94,20 @@ class Homepage extends StatelessWidget {
             builder: (context, constraints) {
               if (isDisplayDesktop(context)) {
                 // En pantallas más grandes, mantén la posición original del botón
-                return SingleChildScrollView(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: Assets.background,
-                        fit: BoxFit.cover,
-                      ),
+                return Container(
+                  padding: const EdgeInsets.only(top: 50),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: Assets.background,
+                      fit: BoxFit.fitHeight,
                     ),
-                    child: Stack(
-                      children: [
-                        const Align(
-                          alignment: Alignment.topCenter,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Arial',
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Arial',
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                '¡Bienvenidos!',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Arial',
-                                  fontSize: 25,
-                                ),
-                              ),
-                              Text(
-                                'Agenda fácil y rápido con CalendApp',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Arial',
-                                  fontSize: 25,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          right: 150,
-                          top: 20,
-                          child: ElevatedButton(
-                            onPressed: () => Get.toNamed(Routes.signup),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromARGB(255, 255, 3, 3)),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(15)),
-                              alignment: Alignment.center,
-                            ),
-                            child: const Text(
-                              'CREAR CUENTA',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Arial',
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          right: 25,
-                          top: 20,
-                          child: TextButton(
-                            onPressed: () => Get.toNamed(Routes.login),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.transparent),
-                              padding:
-                                  MaterialStateProperty.all(const EdgeInsets.all(2)),
-                              alignment: Alignment.center,
-                            ),
-                            child: const Text(
-                              'Iniciar sesión',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 255, 3, 3),
-                                fontSize: 18,
-                                fontFamily: 'Arial',
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      ...text,
+                      const SizedBox(height: 30),
+                      buttons,
+                    ],
                   ),
                 );
               } else {
@@ -130,61 +123,10 @@ class Homepage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 110),
-                        const Text(
-                          '¡Bienvenidos!',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Arial',
-                            fontSize: 20,
-                          ),
-                        ),
-                        const Text(
-                          'Agenda fácil y rápido con CalendApp',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Arial',
-                            fontSize: 20,
-                          ),
-                        ),
+                        const SizedBox(height: 80),
+                        ...text,
                         const SizedBox(height: 270),
-                        ElevatedButton(
-                          onPressed: () => Get.toNamed(Routes.signup),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 255, 3, 3),
-                            ),
-                            padding:
-                                MaterialStateProperty.all(const EdgeInsets.all(16)),
-                            alignment: Alignment.center,
-                          ),
-                          child: const Text(
-                            'CREAR CUENTA',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Arial',
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => Get.toNamed(Routes.login),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                            padding:
-                                MaterialStateProperty.all(const EdgeInsets.all(2)),
-                            alignment: Alignment.center,
-                          ),
-                          child: const Text(
-                            'Iniciar sesión',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 255, 3, 3),
-                              fontSize: 18,
-                              fontFamily: 'Arial',
-                            ),
-                          ),
-                        ),
+                        buttons,
                       ],
                     ),
                   ),

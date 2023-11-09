@@ -18,7 +18,7 @@ class LocationRow extends StatelessWidget {
         autofocus: false,
         style: theme.textTheme.bodyMedium,
         decoration: InputDecoration.collapsed(
-          hintText: 'Location',
+          hintText: 'Lugar de reunión',
           hintStyle: theme.textTheme.bodyMedium!.copyWith(
             color: theme.colorScheme.primary.withOpacity(0.5),
           ),

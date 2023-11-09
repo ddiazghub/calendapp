@@ -24,7 +24,7 @@ class MeetingView extends StatelessWidget {
         child: SizedBox(
           height: double.infinity,
           child: Material(
-            color: Theme.of(context).cardColor,
+            color: Colors.white,
             child: SingleChildScrollView(
               padding: const EdgeInsetsDirectional.only(
                 top: 42,
@@ -123,13 +123,13 @@ class _MeetingViewHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SelectableText(
-                    'Scheduled by $host at ${DateFormat.yMMMd().format(meeting.start)}'),
+                    'Programada por $host para ${DateFormat.yMMMd().format(meeting.start)}'),
                 const SizedBox(height: 4),
                 SelectableText(
-                    'From ${timeFmt.format(meeting.start)} to ${timeFmt.format(meeting.end)}'),
+                    'Desde ${timeFmt.format(meeting.start)} hasta ${timeFmt.format(meeting.end)}'),
                 const SizedBox(height: 4),
                 SelectableText(
-                  'Invited: ${invitees.join(', ')}',
+                  'Invitados: ${invitees.join(', ')}',
                   style: textTheme.bodySmall!.copyWith(
                     color: Theme.of(context)
                         .navigationRailTheme

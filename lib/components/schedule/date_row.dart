@@ -22,9 +22,10 @@ class DateTimeRow extends StatelessWidget {
             child: ReactiveDateTimePicker(
               formControlName: 'date',
               style: theme.textTheme.bodyMedium,
+              locale: const Locale('es'),
               dateFormat: DateFormat.yMMMd(),
               decoration: InputDecoration(
-                hintText: 'Meeting Date',
+                hintText: 'Fecha de la reunión',
                 hintStyle: theme.textTheme.bodyMedium!.copyWith(
                   color: theme.colorScheme.primary.withOpacity(0.5),
                 ),
@@ -39,10 +40,11 @@ class DateTimeRow extends StatelessWidget {
             child: ReactiveDateTimePicker(
               formControlName: 'start',
               style: theme.textTheme.bodyMedium,
+              locale: const Locale('es'),
               type: ReactiveDatePickerFieldType.time,
               dateFormat: DateFormat.jm(),
               decoration: InputDecoration(
-                hintText: 'Start Time',
+                hintText: 'Hora de inicio',
                 hintStyle: theme.textTheme.bodyMedium!.copyWith(
                   color: theme.colorScheme.primary.withOpacity(0.5),
                 ),
@@ -57,15 +59,17 @@ class DateTimeRow extends StatelessWidget {
             child: ReactiveDateTimePicker(
               formControlName: 'end',
               style: theme.textTheme.bodyMedium,
+              locale: const Locale('es'),
               dateFormat: DateFormat.jm(),
               type: ReactiveDatePickerFieldType.time,
               decoration: InputDecoration(
-                  hintText: 'End Time',
-                  hintStyle: theme.textTheme.bodyMedium!.copyWith(
-                    color: theme.colorScheme.primary.withOpacity(0.5),
-                  ),
-                  border: InputBorder.none,
-                  suffixIcon: const Icon(Icons.timer)),
+                hintText: 'Hora de fin',
+                hintStyle: theme.textTheme.bodyMedium!.copyWith(
+                  color: theme.colorScheme.primary.withOpacity(0.5),
+                ),
+                border: InputBorder.none,
+                suffixIcon: const Icon(Icons.timer),
+              ),
             ),
           ),
         ],

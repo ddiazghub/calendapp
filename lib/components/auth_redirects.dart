@@ -1,63 +1,47 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scheduler_app/components/spinner.dart';
 import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 
-class AuthBuilder extends GetView<AuthService> {
-  const AuthBuilder({super.key, required this.builder});
-
-  final Widget Function(BuildContext, User?) builder;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() => builder(context, controller.user));
-  }
-}
-
-class RequiresAuth extends StatelessWidget {
-  const RequiresAuth({super.key, required this.builder});
-
-  final Widget Function(BuildContext, User) builder;
-
-  @override
-  Widget build(BuildContext context) {
-    return AuthBuilder(
-      builder: (context, user) {
-        if (user == null) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Get.offAllNamed(Routes.home);
-          });
-
-          return const Spinner();
-        }
-
-        return builder(context, user);
-      },
-    );
-  }
-}
-
-class RequiresNoAuth extends StatelessWidget {
-  const RequiresNoAuth({super.key, required this.builder});
+class RedirectBuilder<T extends GetxController> extends GetView<T> {
+  const RedirectBuilder({
+    super.key,
+    required this.builder,
+    required this.predicate,
+    required this.redirect,
+  });
 
   final Widget Function(BuildContext) builder;
+  final bool Function(T) predicate;
+  final String redirect;
 
   @override
   Widget build(BuildContext context) {
-    return AuthBuilder(
-      builder: (context, user) {
-        if (user == null) {
-          return builder(context);
-        }
+    return Obx(() {
+      if (predicate(controller)) {
+        return builder(context);
+      }
 
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          Get.offNamed(Routes.meetings);
-        });
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Get.offNamed(redirect);
+      });
 
-        return const Spinner();
-      },
-    );
+      return const Spinner();
+    });
   }
+}
+
+class RequiresAuth extends RedirectBuilder<AuthService> {
+  const RequiresAuth({super.key, required super.builder})
+      : super(redirect: Routes.home, predicate: isSignedIn);
+
+  static bool isSignedIn(AuthService auth) => auth.isSignedIn;
+}
+
+class RequiresNoAuth extends RedirectBuilder<AuthService> {
+  const RequiresNoAuth({super.key, required super.builder})
+      : super(redirect: Routes.meetings, predicate: isNotSignedIn);
+
+  static bool isNotSignedIn(AuthService auth) => !auth.isSignedIn;
 }

@@ -4,53 +4,57 @@ import 'package:scheduler_app/layout/letter_spacing.dart';
 import 'colors.dart';
 
 ThemeData appTheme(BuildContext context) {
-  final base = ThemeData.dark();
+  final base = ThemeData.light();
+
   return base.copyWith(
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: Color.fromARGB(255, 255, 3, 3),
-      ),
-      bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: AppColors.darkDrawerBackground,
-        modalBackgroundColor:
-            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7),
-      ),
-      navigationRailTheme: NavigationRailThemeData(
-        backgroundColor: const Color.fromARGB(255, 255, 3, 3),
-        selectedIconTheme:
-            const IconThemeData(color: Color.fromARGB(255, 12, 12, 12)),
-        selectedLabelTextStyle: GoogleFonts.workSansTextTheme()
-            .headlineSmall!
-            .copyWith(color: const Color.fromARGB(255, 0, 0, 0)),
-        unselectedIconTheme:
-            const IconThemeData(color: Color.fromARGB(255, 10, 10, 10)),
-        unselectedLabelTextStyle: GoogleFonts.workSansTextTheme()
-            .headlineSmall!
-            .copyWith(color: const Color.fromARGB(255, 7, 4, 4)),
-      ),
-      canvasColor: const Color.fromARGB(255, 14, 13, 13),
-      cardColor: AppColors.darkCardBackground,
-      chipTheme: _buildChipTheme(
-        const Color.fromARGB(255, 0, 6, 8),
-        AppColors.darkChipBackground,
-        Brightness.dark,
-      ),
-      colorScheme: const ColorScheme.dark(
-          primary: Color.fromARGB(255, 255, 3, 3),
-          primaryContainer: Color.fromARGB(255, 4, 7, 8),
-          secondary: Color.fromARGB(255, 255, 255, 255),
-          secondaryContainer: AppColors.orange300,
-          surface: AppColors.black800,
-          error: AppColors.red200,
-          onPrimary: AppColors.black900,
-          onSecondary: AppColors.black900,
-          onBackground: Color.fromARGB(255, 248, 248, 248),
-          onSurface: Color.fromARGB(255, 0, 0, 0), //no cambiar
-          onError: AppColors.black900,
-          background: Color.fromARGB(222, 247, 206, 206)),
-      textTheme: _buildDarkTextTheme(base.textTheme),
-      scaffoldBackgroundColor:
-          const Color.fromARGB(248, 255, 255, 255) //no cambiar
-      );
+    bottomAppBarTheme: const BottomAppBarTheme(
+      color: Color.fromARGB(255, 255, 3, 3),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: AppColors.darkDrawerBackground,
+      modalBackgroundColor:
+          const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      backgroundColor: const Color.fromARGB(255, 255, 3, 3),
+      selectedIconTheme:
+          const IconThemeData(color: Color.fromARGB(255, 12, 12, 12)),
+      selectedLabelTextStyle: GoogleFonts.workSansTextTheme()
+          .headlineSmall!
+          .copyWith(color: const Color.fromARGB(255, 0, 0, 0)),
+      unselectedIconTheme:
+          const IconThemeData(color: Color.fromARGB(255, 10, 10, 10)),
+      unselectedLabelTextStyle: GoogleFonts.workSansTextTheme()
+          .headlineSmall!
+          .copyWith(color: const Color.fromARGB(255, 7, 4, 4)),
+    ),
+    canvasColor: const Color.fromARGB(255, 14, 13, 13),
+    cardColor: AppColors.darkCardBackground,
+    chipTheme: _buildChipTheme(
+      const Color.fromARGB(255, 0, 6, 8),
+      AppColors.darkChipBackground,
+      Brightness.light,
+    ),
+    colorScheme: const ColorScheme.light(
+      primary: Color.fromARGB(255, 255, 3, 3),
+      secondary: Color.fromARGB(255, 255, 255, 255),
+      secondaryContainer: AppColors.orange300,
+      error: AppColors.red200,
+      onPrimary: AppColors.black900,
+      onSecondary: AppColors.black900,
+      onBackground: Color.fromARGB(255, 248, 248, 248),
+      onSurface: Color.fromARGB(255, 0, 0, 0), //no cambiar
+      onError: AppColors.black900,
+      background: Color.fromARGB(222, 247, 206, 206),
+    ),
+    textTheme: _buildDarkTextTheme(base.textTheme),
+    scaffoldBackgroundColor: const Color.fromARGB(
+      248,
+      255,
+      255,
+      255,
+    ), //no cambiar
+  );
 }
 
 ChipThemeData _buildChipTheme(

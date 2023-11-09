@@ -18,52 +18,21 @@ class MeetingPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return OpenContainer(
       openBuilder: (context, closedContainer) {
         return AppView(child: MeetingView(meeting: meeting));
       },
-      openColor: theme.cardColor,
+      openColor: Colors.white,
       closedShape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(0)),
       ),
       closedElevation: 0,
-      closedColor: theme.cardColor,
+      closedColor: Colors.red,
       closedBuilder: (context, openContainer) {
-        final isDesktop = isDisplayDesktop(context);
-        final colorScheme = theme.colorScheme;
-        final preview = MeetingPreview(
+        return MeetingPreview(
           meeting: meeting,
           onTap: openContainer,
         );
-
-        if (isDesktop) {
-          return preview;
-        } else {
-          return Dismissible(
-            key: ObjectKey(meeting),
-            dismissThresholds: const {
-              DismissDirection.startToEnd: 0.8,
-              DismissDirection.endToStart: 0.4,
-            },
-            background: DismissibleContainer(
-              icon: 'twotone_delete',
-              backgroundColor: colorScheme.primary,
-              iconColor: AppColors.blue50,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsetsDirectional.only(start: 20),
-            ),
-            secondaryBackground: DismissibleContainer(
-              icon: 'twotone_star',
-              backgroundColor: theme.scaffoldBackgroundColor,
-              iconColor: colorScheme.onBackground,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsetsDirectional.only(end: 20),
-            ),
-            child: preview,
-          );
-        }
       },
     );
   }

@@ -15,14 +15,14 @@ class MessageList extends StatelessWidget {
       itemCount: docs.length,
       itemBuilder: (context, i) {
         final message = docs[i].data;
-        final user = participants[message.user]?.email ?? 'anonymous';
+        final user = participants[message.user]?.email ?? 'anónimo';
         final datetime = Moment(message.createdAt).fromNow();
         final contextText = Text('$user $datetime:');
 
         return Row(
           children: [
             DefaultTextStyle.merge(
-              style: const TextStyle(color: Colors.indigo),
+              style: const TextStyle(color: Colors.red),
               child: contextText,
             ),
             const SizedBox(width: 10),
