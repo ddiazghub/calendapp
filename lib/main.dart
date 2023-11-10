@@ -3,9 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:loggy/loggy.dart';
+import 'package:moment_dart/moment_dart.dart';
 import 'package:scheduler_app/pages/calendar_page.dart';
-import 'package:scheduler_app/pages/sign_up_page.dart';
+import 'package:scheduler_app/components/user_data_form.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 import 'package:scheduler_app/services/avatar_service.dart';
 import 'package:scheduler_app/services/meeting_service.dart';
@@ -18,7 +21,7 @@ const darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void onAuthStateChange(User? user) {
   final AuthService auth = Get.find();
-  
+
   if (user == null) {
     auth.user = null;
     logInfo('User is currently signed out!');
@@ -44,7 +47,6 @@ void main() async {
   );
 
   FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
-  FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
 
   Get.put(AuthService());
   Get.put(AvatarService());
@@ -53,6 +55,8 @@ void main() async {
   Get.put(CalendarController());
   Get.put(ImagePickController());
 
-  runApp(const SchedulerApp());
-  //runApp(const MyApp());
+  Moment.setGlobalLocalization(MomentLocalizations.es());
+  Intl.defaultLocale = 'es';
+
+  initializeDateFormatting().then((_) => runApp(const SchedulerApp()));
 }

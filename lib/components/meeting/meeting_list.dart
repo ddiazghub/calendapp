@@ -26,7 +26,7 @@ class MeetingList extends StatelessWidget {
             : 4.0;
 
     if (meetings.isEmpty) {
-      return const Center(child: Text('No meetings found'));
+      return const Center(child: Text('No se encontraron reuniones'));
     } else {
       return ListView.separated(
         itemCount: meetings.length,

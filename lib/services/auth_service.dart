@@ -14,6 +14,8 @@ class AuthService extends GetxController {
 
   set user(User? value) => _user.value = value;
 
+  bool get isSignedIn => user != null;
+
   Future<void> login(String email, String password) async {
     await _auth.signInWithEmailAndPassword(
       email: email,

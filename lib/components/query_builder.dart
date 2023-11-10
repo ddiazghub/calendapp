@@ -4,10 +4,12 @@ import 'package:scheduler_app/components/spinner.dart';
 
 typedef BuilderFunction<T> = Widget Function(BuildContext, T);
 
-Widget snapshotBuilder<T>(BuildContext context, AsyncSnapshot<T> snapshot,
-    BuilderFunction<T> builder) {
+Widget snapshotBuilder<T>(
+  BuildContext context,
+  AsyncSnapshot<T> snapshot,
+  BuilderFunction<T> builder,
+) {
   if (snapshot.hasError) {
-    throw snapshot.error!;
     return Center(child: Text('$snapshot.error'));
   } else if (!snapshot.hasData) {
     return const Spinner();
@@ -34,8 +36,11 @@ class QueryBuilder<T> extends StatelessWidget {
 }
 
 class StreamingBuilder<T> extends StatelessWidget {
-  const StreamingBuilder(
-      {super.key, required this.stream, required this.builder});
+  const StreamingBuilder({
+    super.key,
+    required this.stream,
+    required this.builder,
+  });
 
   final Stream<T> stream;
   final Widget Function(BuildContext, T data) builder;

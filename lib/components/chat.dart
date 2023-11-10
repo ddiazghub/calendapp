@@ -42,7 +42,7 @@ class Chat extends GetView<AuthService> {
               onSubmitted: (String value) {
                 final message = Message(
                   value,
-                  controller.user!.email!,
+                  controller.user!.uid,
                   meeting.id,
                   DateTime.now(),
                 );
@@ -50,10 +50,6 @@ class Chat extends GetView<AuthService> {
               },
             ),
           ),
-          // We use a stream builder to both read the initial data from the
-          // database and listen to updates to that data in realtime. The
-          // database we use is called Firestore, and we are asking the 10
-          // most recent messages.
           const SizedBox(height: 10),
           Expanded(
             child: MessageList(

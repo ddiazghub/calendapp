@@ -16,7 +16,7 @@ class ProfileAvatar extends StatelessWidget {
       color: Colors.transparent,
       child: CircleAvatar(
         radius: radius,
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Colors.white,
         child: ClipOval(
           child: Image.network(
             url,

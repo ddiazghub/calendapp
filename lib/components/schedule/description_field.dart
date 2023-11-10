@@ -15,9 +15,10 @@ class DescriptionField extends StatelessWidget {
         minLines: 6,
         maxLines: 20,
         decoration: InputDecoration.collapsed(
-          hintText: 'Description',
-          hintStyle: theme.textTheme.bodyMedium!
-              .copyWith(color: theme.colorScheme.primary.withOpacity(0.5)),
+          hintText: 'Descripción o asunto de la reunión',
+          hintStyle: theme.textTheme.bodyMedium!.copyWith(
+            color: theme.colorScheme.primary.withOpacity(0.5),
+          ),
         ),
         autofocus: false,
         style: Theme.of(context).textTheme.bodyMedium,

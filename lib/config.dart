@@ -9,15 +9,15 @@ String dunno(error) {
 }
 
 final validation = {
-  ValidationMessage.required: (_) => 'Field is mandatory',
-  ValidationMessage.email: (_) => 'Must enter a valid email',
-  ValidationMessage.minLength: (error) => 'Field must have a minimun length of ${(error as Map)['requiredLength']}',
-  ValidationMessage.number: (_) => 'Field must be a number',
+  ValidationMessage.required: (_) => 'El campo es obligatorio',
+  ValidationMessage.email: (_) => 'El campo debe ser una dirección de correo electrónico',
+  ValidationMessage.minLength: (error) => 'El campo debe tener una longitud mínima de ${(error as Map)['requiredLength']}',
+  ValidationMessage.number: (_) => 'El campo debe ser un valor numérico',
   ValidationMessage.min: dunno,
   ValidationMessage.max: dunno,
-  'uniqueEmail': (_) => 'This email is already in use',
-  'url': (_) => 'Field must be an URL',
-  'dateRange': (_) => 'Invalid date range. Start time must be before end time',
+  'uniqueEmail': (_) => 'El correo electrónico ya está registrado',
+  'url': (_) => 'El campo debe ser un URL',
+  'dateRange': (_) => 'Rango de hora incorrecto. La hora de inicio debe ser antes de la hora de fin',
 };
 
 

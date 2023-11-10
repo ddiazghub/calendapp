@@ -7,9 +7,17 @@ part 'meeting.g.dart';
 
 @FirestoreSerializable
 class Meeting {
-  const Meeting(this.title, this.description, this.host, this.location,
-      this.invitees, this.start, this.end, this.createdAt,
-      {this.id = ''});
+  const Meeting(
+    this.title,
+    this.description,
+    this.host,
+    this.location,
+    this.invitees,
+    this.start,
+    this.end,
+    this.createdAt, {
+    this.id = '',
+  });
 
   @DateTimeField
   final DateTime createdAt;

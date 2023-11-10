@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scheduler_app/colors.dart';
 import 'package:scheduler_app/components/page/destination.dart';
 import 'package:scheduler_app/components/page/logo.dart';
 import 'package:scheduler_app/layout/adaptative.dart';
@@ -12,102 +11,134 @@ import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 
 class AppView extends StatelessWidget {
-  const AppView({super.key, required this.child, this.currentTab});
+  const AppView({super.key, required this.child, this.currentTab, this.title});
 
   final Widget child;
   final NavigationTab? currentTab;
+  final String? title;
+
+  static AppBar appBar({NavigationTab? currentTab, String? title}) {
+    return AppBar(
+      title: Text(
+        title ??
+            (currentTab == null
+                ? ''
+                : Destination.defaults[currentTab.index].textLabel),
+      ),
+    );
+  }
 
   static void navigate(int index) {
-                          final destination = Destination.defaults[index];
+    final destination = Destination.defaults[index];
 
-                          if (destination.type == NavigationTab.logout) {
-                            Get.find<AuthService>().logOut();
-                          } else {
-                            Get.toNamed(destination.type.route);
-                          }
+    if (destination.type == NavigationTab.logout) {
+      Get.find<AuthService>().logOut();
+    } else {
+      Get.toNamed(destination.type.route);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     if (isDisplayDesktop(context)) {
-      return DesktopView(currentTab: currentTab, child: child);
+      return DesktopView(currentTab: currentTab, title: title, child: child);
     } else {
-      return MobileView(currentTab: currentTab, child: child);
+      return MobileView(currentTab: currentTab, title: title, child: child);
     }
   }
 }
 
 class DesktopView extends AppView {
-  const DesktopView({super.key, required super.child, super.currentTab});
+  const DesktopView({
+    super.key,
+    required super.child,
+    super.currentTab,
+    super.title,
+  });
+
+  static const unselectedColor = Color.fromRGBO(255, 164, 164, 1);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Row(
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Container(
-                color: Theme.of(context).navigationRailTheme.backgroundColor,
-                child: SingleChildScrollView(
-                  clipBehavior: Clip.antiAlias,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        destinations: [
-                          for (var destination in Destination.defaults)
-                            NavigationRailDestination(
-                              icon: Material(
-                                color: Colors.transparent,
-                                child: destination.icon,
-                              ),
-                              label: Text(destination.textLabel),
-                            ),
-                        ],
-                        extended: false,
-                        labelType: NavigationRailLabelType.all,
-                        leading: const _NavigationRailHeader(),
-                        selectedIndex: currentTab?.index,
-                        onDestinationSelected: AppView.navigate,
+      body: Container(
+        height: size.height,
+        width: size.width,
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Row(
+          children: [
+            NavigationRail(
+              selectedIndex: currentTab?.index ?? 0,
+              backgroundColor: theme.bottomAppBarTheme.color!,
+              labelType: NavigationRailLabelType.all,
+              leading: const _NavigationRailHeader(),
+              onDestinationSelected: AppView.navigate,
+              unselectedLabelTextStyle: const TextStyle(color: unselectedColor),
+              selectedLabelTextStyle: const TextStyle(color: Colors.white),
+              extended: false,
+              destinations: [
+                for (final destination in Destination.defaults)
+                  NavigationRailDestination(
+                    icon: Tooltip(
+                      message: destination.textLabel,
+                      child: RotatedBox(
+                        quarterTurns: 4,
+                        child: Icon(destination.icon, color: Colors.white),
                       ),
                     ),
+                    label: Text(destination.textLabel),
+                  ),
+              ],
+            ),
+            const VerticalDivider(thickness: 1, width: 1),
+            Expanded(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1300),
+                  child: Scaffold(
+                    appBar: AppView.appBar(
+                      currentTab: currentTab,
+                      title: title,
+                    ),
+                    body: child,
                   ),
                 ),
-              );
-            },
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1340),
-                child: child,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
 class MobileView extends AppView {
-  const MobileView({super.key, required super.child, super.currentTab});
+  const MobileView({
+    super.key,
+    required super.child,
+    super.currentTab,
+    super.title,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppView.appBar(currentTab: currentTab, title: title),
       bottomNavigationBar: CurvedNavigationBar(
-      index: currentTab?.index ?? 0,
-      color: theme.bottomAppBarTheme.color!,
+        backgroundColor: Colors.white,
+        index: currentTab?.index ?? 0,
+        color: theme.bottomAppBarTheme.color!,
         items: [
           for (final destination in Destination.defaults)
-            Tooltip(message: destination.textLabel, child: destination.icon)
+            Tooltip(
+              message: destination.textLabel,
+              child: Icon(destination.icon, color: Colors.white),
+            )
         ],
         onTap: AppView.navigate,
       ),
@@ -146,6 +177,7 @@ class _FadeThroughTransitionSwitcher extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _NavigationRailHeader extends StatelessWidget {
   const _NavigationRailHeader();
 
@@ -157,51 +189,23 @@ class _NavigationRailHeader extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
-        return Align(
+        return const Align(
           alignment: AlignmentDirectional.centerStart,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 56,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 6),
-                    InkWell(
-                      key: const ValueKey('ReplyLogo'),
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: Row(
-                        children: [
-                          const Logo(),
-                          const SizedBox(width: 10),
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            widthFactor: animation.value,
-                            child: Opacity(
-                              opacity: animation.value,
-                              child: Text(
-                                'REPLY',
-                                style: textTheme.bodyLarge!.copyWith(
-                                  color: AppColors.white50,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 18 * animation.value),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                height: 75,
+                child: Logo(),
               ),
-              const SizedBox(height: 20),
-              const Padding(
+              SizedBox(height: 15),
+              Padding(
                 padding: EdgeInsetsDirectional.only(
                   start: 8,
                 ),
                 child: _ReplyFab(extended: false),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
             ],
           ),
         );

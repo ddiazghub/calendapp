@@ -5,19 +5,17 @@ import 'package:image_picker/image_picker.dart';
 class AvatarService extends GetxService {
   final storage = FirebaseStorage.instance.ref().child('avatars');
 
+  static const defaultAvatar =  'https://firebasestorage.googleapis.com/v0/b/scheduler-96041.appspot.com/o/avatars%2FPortrait_Placeholder.png?alt=media&token=65412e11-1ad5-4120-bd8d-7d1748af3b95';
+
   Future<String> create(XFile avatar) async {
-    print(storage);
     final ref = storage.child(avatar.name);
-    print(ref);
 
     await ref.putData(
       await avatar.readAsBytes(),
       SettableMetadata(contentType: avatar.mimeType),
     );
 
-    print('put done');
     final url = await ref.getDownloadURL();
-    print(url);
 
     return url;
   }

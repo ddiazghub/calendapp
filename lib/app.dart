@@ -4,6 +4,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:scheduler_app/config.dart';
 import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class SchedulerApp extends StatelessWidget {
   const SchedulerApp({super.key});
@@ -15,7 +16,15 @@ class SchedulerApp extends StatelessWidget {
     return ReactiveFormConfig(
       validationMessages: validation,
       child: GetMaterialApp(
-        title: 'Scheduler App',
+        title: 'CalendAPP',
+        locale: const Locale('es'),
+        supportedLocales: const [Locale('es')],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          // add other library integrated locals
+        ],
         debugShowCheckedModeBanner: false,
         theme: theme,
         initialRoute: Routes.home,

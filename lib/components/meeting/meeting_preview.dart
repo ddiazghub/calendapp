@@ -15,15 +15,16 @@ class MeetingPreview extends StatelessWidget {
   final Meeting meeting;
   final VoidCallback onTap;
 
+  static TextStyle? themeOf(TextStyle? theme) {
+    return theme?.copyWith(color: Colors.white);
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
-      onTap: () {
-        //model.selectedMeetingId = id;
-        onTap();
-      },
+      onTap: onTap,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return ConstrainedBox(
@@ -43,18 +44,18 @@ class MeetingPreview extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(meeting.title, style: textTheme.headlineSmall),
+                            Text(meeting.title, style: themeOf(textTheme.headlineSmall)),
                             const SizedBox(height: 4),
                             Text(
                               switch (meeting.status) {
                                 MeetingStatus.scheduled =>
-                                  'Meeting ${Moment(meeting.start).fromNow()} at ${meeting.location}',
+                                  'Reunión ${Moment(meeting.start).fromNow()} en ${meeting.location}',
                                 MeetingStatus.started =>
-                                  'Meeting in progress at ${meeting.location}',
+                                  'Reunión en progreso en ${meeting.location}',
                                 MeetingStatus.ended =>
-                                  'Meeting ${Moment(meeting.end).fromNow()} at ${meeting.location}',
+                                  'Reunión ${Moment(meeting.end).fromNow()} en ${meeting.location}',
                               },
-                              style: textTheme.bodySmall,
+                              style: themeOf(textTheme.bodySmall),
                             ),
                             const SizedBox(height: 16),
                           ],
@@ -66,6 +67,7 @@ class MeetingPreview extends StatelessWidget {
                           ),
                           builder: (context, snapshot) {
                             return MeetingActionBar(
+                              light: true,
                               meeting: meeting,
                               participants: snapshot.docs.map((e) => e.data),
                             );
@@ -80,7 +82,7 @@ class MeetingPreview extends StatelessWidget {
                       meeting.description,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: textTheme.bodyMedium,
+                      style: themeOf(textTheme.bodyMedium),
                     ),
                   ),
                 ],

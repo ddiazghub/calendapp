@@ -8,6 +8,7 @@ part of 'user.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, require_trailing_commas, prefer_single_quotes, prefer_double_quotes, use_super_parameters, duplicate_ignore
+// ignore_for_file: type=lint
 
 class _Sentinel {
   const _Sentinel();
@@ -30,14 +31,14 @@ abstract class UserDataCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return UserData.fromJson(snapshot.data()!);
+    return UserData.fromJson({'id': snapshot.id, ...?snapshot.data()});
   }
 
   static Map<String, Object?> toFirestore(
     UserData value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return {...value.toJson()}..remove('id');
   }
 
   @override
@@ -137,6 +138,8 @@ abstract class UserDataDocumentReference
     FieldValue phoneFieldValue,
     String image,
     FieldValue imageFieldValue,
+    String role,
+    FieldValue roleFieldValue,
     DateTime birthday,
     FieldValue birthdayFieldValue,
   });
@@ -156,6 +159,8 @@ abstract class UserDataDocumentReference
     FieldValue phoneFieldValue,
     String image,
     FieldValue imageFieldValue,
+    String role,
+    FieldValue roleFieldValue,
     DateTime birthday,
     FieldValue birthdayFieldValue,
   });
@@ -200,6 +205,8 @@ class _$UserDataDocumentReference
     FieldValue? phoneFieldValue,
     Object? image = _sentinel,
     FieldValue? imageFieldValue,
+    Object? role = _sentinel,
+    FieldValue? roleFieldValue,
     Object? birthday = _sentinel,
     FieldValue? birthdayFieldValue,
   }) async {
@@ -224,6 +231,10 @@ class _$UserDataDocumentReference
       "Cannot specify both image and imageFieldValue",
     );
     assert(
+      role == _sentinel || roleFieldValue == null,
+      "Cannot specify both role and roleFieldValue",
+    );
+    assert(
       birthday == _sentinel || birthdayFieldValue == null,
       "Cannot specify both birthday and birthdayFieldValue",
     );
@@ -250,6 +261,10 @@ class _$UserDataDocumentReference
             _$UserDataPerFieldToJson.image(image as String),
       if (imageFieldValue != null)
         _$UserDataFieldMap['image']!: imageFieldValue,
+      if (role != _sentinel)
+        _$UserDataFieldMap['role']!:
+            _$UserDataPerFieldToJson.role(role as String),
+      if (roleFieldValue != null) _$UserDataFieldMap['role']!: roleFieldValue,
       if (birthday != _sentinel)
         _$UserDataFieldMap['birthday']!:
             _$UserDataPerFieldToJson.birthday(birthday as DateTime),
@@ -272,6 +287,8 @@ class _$UserDataDocumentReference
     FieldValue? phoneFieldValue,
     Object? image = _sentinel,
     FieldValue? imageFieldValue,
+    Object? role = _sentinel,
+    FieldValue? roleFieldValue,
     Object? birthday = _sentinel,
     FieldValue? birthdayFieldValue,
   }) {
@@ -296,6 +313,10 @@ class _$UserDataDocumentReference
       "Cannot specify both image and imageFieldValue",
     );
     assert(
+      role == _sentinel || roleFieldValue == null,
+      "Cannot specify both role and roleFieldValue",
+    );
+    assert(
       birthday == _sentinel || birthdayFieldValue == null,
       "Cannot specify both birthday and birthdayFieldValue",
     );
@@ -322,6 +343,10 @@ class _$UserDataDocumentReference
             _$UserDataPerFieldToJson.image(image as String),
       if (imageFieldValue != null)
         _$UserDataFieldMap['image']!: imageFieldValue,
+      if (role != _sentinel)
+        _$UserDataFieldMap['role']!:
+            _$UserDataPerFieldToJson.role(role as String),
+      if (roleFieldValue != null) _$UserDataFieldMap['role']!: roleFieldValue,
       if (birthday != _sentinel)
         _$UserDataFieldMap['birthday']!:
             _$UserDataPerFieldToJson.birthday(birthday as DateTime),
@@ -483,6 +508,17 @@ abstract class UserDataQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
+  UserDataQuery whereRole({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  });
   UserDataQuery whereBirthday({
     DateTime? isEqualTo,
     DateTime? isNotEqualTo,
@@ -556,6 +592,18 @@ abstract class UserDataQuery
   });
 
   UserDataQuery orderByImage({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    UserDataDocumentSnapshot? startAtDocument,
+    UserDataDocumentSnapshot? endAtDocument,
+    UserDataDocumentSnapshot? endBeforeDocument,
+    UserDataDocumentSnapshot? startAfterDocument,
+  });
+
+  UserDataQuery orderByRole({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -956,6 +1004,46 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$UserDataPerFieldToJson.image(e)),
         whereNotIn: whereNotIn?.map((e) => _$UserDataPerFieldToJson.image(e)),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  UserDataQuery whereRole({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  }) {
+    return _$UserDataQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$UserDataFieldMap['role']!,
+        isEqualTo:
+            isEqualTo != null ? _$UserDataPerFieldToJson.role(isEqualTo) : null,
+        isNotEqualTo: isNotEqualTo != null
+            ? _$UserDataPerFieldToJson.role(isNotEqualTo)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$UserDataPerFieldToJson.role(isLessThan)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$UserDataPerFieldToJson.role(isLessThanOrEqualTo)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$UserDataPerFieldToJson.role(isGreaterThan)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$UserDataPerFieldToJson.role(isGreaterThanOrEqualTo)
+            : null,
+        isNull: isNull,
+        whereIn: whereIn?.map((e) => _$UserDataPerFieldToJson.role(e)),
+        whereNotIn: whereNotIn?.map((e) => _$UserDataPerFieldToJson.role(e)),
       ),
       $queryCursor: $queryCursor,
     );
@@ -1435,6 +1523,78 @@ class _$UserDataQuery extends QueryReference<UserData, UserDataQuerySnapshot>
     );
   }
 
+  UserDataQuery orderByRole({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    UserDataDocumentSnapshot? startAtDocument,
+    UserDataDocumentSnapshot? endAtDocument,
+    UserDataDocumentSnapshot? endBeforeDocument,
+    UserDataDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$UserDataFieldMap['role']!,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$UserDataQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
   UserDataQuery orderByBirthday({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -1612,19 +1772,25 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       Converters.localTime(json['birthday'] as Timestamp),
       json['phone'] as String,
       json['image'] as String,
+      json['role'] as String,
+      id: json['id'] as String? ?? '',
     );
 
 const _$UserDataFieldMap = <String, String>{
+  'id': 'id',
   'email': 'email',
   'name': 'name',
   'phone': 'phone',
   'image': 'image',
+  'role': 'role',
   'birthday': 'birthday',
   'uid': 'uid',
 };
 
 // ignore: unused_element
 abstract class _$UserDataPerFieldToJson {
+  // ignore: unused_element
+  static Object? id(String instance) => instance;
   // ignore: unused_element
   static Object? email(String instance) => instance;
   // ignore: unused_element
@@ -1634,16 +1800,20 @@ abstract class _$UserDataPerFieldToJson {
   // ignore: unused_element
   static Object? image(String instance) => instance;
   // ignore: unused_element
+  static Object? role(String instance) => instance;
+  // ignore: unused_element
   static Object? birthday(DateTime instance) => Converters.timestamp(instance);
   // ignore: unused_element
   static Object? uid(String instance) => instance;
 }
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
+      'id': instance.id,
       'email': instance.email,
       'name': instance.name,
       'phone': instance.phone,
       'image': instance.image,
+      'role': instance.role,
       'birthday': Converters.timestamp(instance.birthday),
       'uid': instance.uid,
     };

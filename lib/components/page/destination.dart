@@ -15,33 +15,33 @@ class Destination {
   final String textLabel;
 
   // The icon that appears next to the text label for the inbox.
-  final Widget icon;
+  final IconData icon;
 
   static const defaults = [
     Destination(
       type: NavigationTab.home,
-      textLabel: 'Home',
-      icon: Icon(Icons.home),
+      textLabel: 'Inicio',
+      icon: Icons.home,
     ),
     Destination(
       type: NavigationTab.schedule,
-      textLabel: 'Schedule',
-      icon: Icon(Icons.email),
+      textLabel: 'Agendar',
+      icon: Icons.edit_calendar,
     ),
     Destination(
       type: NavigationTab.calendar,
-      textLabel: 'Calendar',
-      icon: Icon(Icons.calendar_month),
+      textLabel: 'Calendario',
+      icon: Icons.calendar_month,
     ),
     Destination(
       type: NavigationTab.profile,
-      textLabel: 'Profile',
-      icon: Icon(Icons.account_circle),
+      textLabel: 'Perfil',
+      icon: Icons.account_circle,
     ),
     Destination(
       type: NavigationTab.logout,
-      textLabel: 'Log Out',
-      icon: Icon(Icons.logout),
+      textLabel: 'Cerrar sesión',
+      icon: Icons.logout,
     ),
   ];
 }
