@@ -64,6 +64,172 @@ class UserDataForm extends GetView<AuthService> {
     );
   }
 
+  Widget userDataForm(context, form, child) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      picker.reset();
+    });
+
+    return Row(
+      children: [
+        Expanded(child: AppImagePicker(defaultImage: user?.image)),
+        Expanded(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ReactiveDropdownField<String>(
+                        formControlName: 'role',
+                        dropdownColor: const Color.fromARGB(
+                          255,
+                          255,
+                          3,
+                          3,
+                        ),
+                        items: [
+                          for (final role in roles)
+                            DropdownMenuItem(
+                              value: role,
+                              child: Text(
+                                role,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                        ],
+                        decoration: decoration('Rol'),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      ReactiveTextField<String>(
+                        key: keys.name,
+                        formControlName: 'name',
+                        textInputAction: TextInputAction.next,
+                        decoration: decoration('Nombres'),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      ReactiveTextField<String>(
+                        key: keys.email,
+                        formControlName: 'email',
+                        textInputAction: TextInputAction.next,
+                        decoration: decoration('Correo'),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      if (user == null)
+                        ReactiveTextField<String>(
+                          key: keys.password,
+                          formControlName: 'password',
+                          obscureText: true,
+                          textInputAction: TextInputAction.next,
+                          decoration: decoration('Contraseña'),
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ReactiveDateTimePicker(
+                        key: keys.birthday,
+                        formControlName: 'birthday',
+                        locale: const Locale('es'),
+                        decoration: decoration(
+                          'Fecha de Nacimiento',
+                          icon: const Icon(Icons.calendar_today),
+                        ),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      ReactiveTextField<String>(
+                        key: keys.phone,
+                        formControlName: 'phone',
+                        textInputAction: TextInputAction.next,
+                        decoration: decoration('Teléfono'),
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (form.valid) {
+                            logInfo(form.value);
+                            final avatar = Get.find<AvatarService>();
+
+                            final url = picker.image != null
+                                ? await avatar.create(picker.image!)
+                                : this.user?.image ??
+                                    AvatarService.defaultAvatar;
+
+                            final user = BaseUser(
+                              form.control('email').value,
+                              form.control('name').value,
+                              form.control('birthday').value,
+                              form.control('phone').value,
+                              url,
+                              form.control('role').value,
+                            );
+
+                            try {
+                              if (this.user != null) {
+                                UserRef.doc(this.user!.id).update(
+                                  name: user.name,
+                                  email: user.email,
+                                  birthday: user.birthday,
+                                  phone: user.phone,
+                                  role: user.role,
+                                  image: url,
+                                );
+
+                                Get.offNamed(Routes.meetings);
+                              } else {
+                                await controller.signUp(
+                                  user,
+                                  form.control('password').value,
+                                );
+
+                                Get.offAllNamed(Routes.meetings);
+                              }
+                            } catch (err) {
+                              Get.snackbar(
+                                'Error',
+                                'Ha ocurrido un error: $err',
+                                snackPosition: SnackPosition.BOTTOM,
+                                borderColor: Colors.black,
+                                borderWidth: 3,
+                                backgroundColor: Colors.red,
+                              );
+                            }
+                          } else {
+                            form.markAllAsTouched();
+                          }
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            const Color.fromARGB(255, 255, 3, 3),
+                          ),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.all(15),
+                          ),
+                          alignment: Alignment.center,
+                        ),
+                        child: Text(
+                          user == null ? 'CREAR CUENTA' : 'EDITAR CUENTA',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Arial',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppView(
@@ -72,162 +238,7 @@ class UserDataForm extends GetView<AuthService> {
       child: Scaffold(
         body: ReactiveFormBuilder(
           form: buildForm,
-          builder: (context, form, child) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              picker.reset();
-            });
-
-            return Row(
-              children: [
-                Expanded(child: AppImagePicker(defaultImage: user?.image)),
-                Expanded(
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 500),
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ReactiveDropdownField<String>(
-                                formControlName: 'role',
-                                dropdownColor: const Color.fromARGB(
-                                  255,
-                                  255,
-                                  3,
-                                  3,
-                                ),
-                                items: [
-                                  for (final role in roles)
-                                    DropdownMenuItem(
-                                      value: role,
-                                      child: Text(
-                                        role,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                                decoration: decoration('Rol'),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                              ReactiveTextField<String>(
-                                key: keys.name,
-                                formControlName: 'name',
-                                textInputAction: TextInputAction.next,
-                                decoration: decoration('Nombres'),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                              ReactiveTextField<String>(
-                                key: keys.email,
-                                formControlName: 'email',
-                                textInputAction: TextInputAction.next,
-                                decoration: decoration('Correo'),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                              if (user == null)
-                                ReactiveTextField<String>(
-                                  key: keys.password,
-                                  formControlName: 'password',
-                                  obscureText: true,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: decoration('Contraseña'),
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ReactiveDateTimePicker(
-                                key: keys.birthday,
-                                formControlName: 'birthday',
-                                locale: const Locale('es'),
-                                decoration: decoration(
-                                  'Fecha de Nacimiento',
-                                  icon: const Icon(Icons.calendar_today),
-                                ),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                              ReactiveTextField<String>(
-                                key: keys.phone,
-                                formControlName: 'phone',
-                                textInputAction: TextInputAction.next,
-                                decoration: decoration('Teléfono'),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  if (form.valid) {
-                                    logInfo(form.value);
-                                    final avatar = Get.find<AvatarService>();
-
-                                    final url = picker.image != null
-                                        ? await avatar.create(picker.image!)
-                                        : this.user?.image ??
-                                            AvatarService.defaultAvatar;
-
-                                    final user = BaseUser(
-                                      form.control('email').value,
-                                      form.control('name').value,
-                                      form.control('birthday').value,
-                                      form.control('phone').value,
-                                      url,
-                                      form.control('role').value,
-                                    );
-
-                                    if (this.user != null) {
-                                      UserRef.doc(this.user!.id).update(
-                                        name: user.name,
-                                        email: user.email,
-                                        birthday: user.birthday,
-                                        phone: user.phone,
-                                        role: user.role,
-                                        image: url,
-                                      );
-
-                                      Get.offNamed(Routes.meetings);
-                                    } else {
-                                      await controller.signUp(
-                                        user,
-                                        form.control('password').value,
-                                      );
-
-                                      Get.offAllNamed(Routes.meetings);
-                                    }
-                                  } else {
-                                    form.markAllAsTouched();
-                                  }
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                    const Color.fromARGB(255, 255, 3, 3),
-                                  ),
-                                  padding: MaterialStateProperty.all(
-                                    const EdgeInsets.all(15),
-                                  ),
-                                  alignment: Alignment.center,
-                                ),
-                                child: Text(
-                                  user == null
-                                      ? 'CREAR CUENTA'
-                                      : 'EDITAR CUENTA',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'Arial',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+          builder: userDataForm,
         ),
       ),
     );

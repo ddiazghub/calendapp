@@ -40,6 +40,75 @@ class LoginPage extends GetView<AuthService> {
     });
   }
 
+  Widget loginForm(BuildContext context, FormGroup form, Widget? child) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ReactiveTextField<String>(
+          key: keys.email,
+          formControlName: 'email',
+          textInputAction: TextInputAction.next,
+          decoration: decoration('Correo'),
+          style: const TextStyle(color: Colors.black),
+        ),
+        const SizedBox(height: 16.0),
+        ReactiveTextField<String>(
+          key: keys.password,
+          formControlName: 'password',
+          obscureText: true,
+          textInputAction: TextInputAction.done,
+          decoration: decoration('Contraseña'),
+          style: const TextStyle(color: Colors.black),
+        ),
+        const SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
+        ElevatedButton(
+          onPressed: () async {
+            if (form.valid) {
+              try {
+                await controller.login(
+                  form.control('email').value,
+                  form.control('password').value,
+                );
+
+                Get.offAllNamed(Routes.meetings);
+              } catch (err) {
+                Get.snackbar(
+                  'Error',
+                  'Error de inicio de sesión: $err',
+                  snackPosition: SnackPosition.BOTTOM,
+                  borderColor: Colors.black,
+                  borderWidth: 3,
+                  backgroundColor: Colors.red,
+                );
+              }
+            } else {
+              form.markAllAsTouched();
+            }
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              const Color.fromARGB(255, 255, 3, 3),
+            ),
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.all(15),
+            ),
+            alignment: Alignment.center,
+          ),
+          child: const Text(
+            'INGRESAR',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontFamily: 'Arial',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return RequiresNoAuth(
@@ -50,9 +119,8 @@ class LoginPage extends GetView<AuthService> {
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: Assets.loginBackground, // Ruta de tu imagen
-                  fit:
-                      BoxFit.cover, // Ajusta la imagen para cubrir toda el área
+                  image: Assets.loginBackground,
+                  fit: BoxFit.cover,
                 ),
               ),
               child: Center(
@@ -62,61 +130,7 @@ class LoginPage extends GetView<AuthService> {
                     padding: const EdgeInsets.all(20),
                     child: ReactiveFormBuilder(
                       form: buildForm,
-                      builder: (context, form, child) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ReactiveTextField<String>(
-                              key: keys.email,
-                              formControlName: 'email',
-                              textInputAction: TextInputAction.next,
-                              decoration: decoration('Correo'),
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                            const SizedBox(height: 16.0),
-                            ReactiveTextField<String>(
-                              key: keys.password,
-                              formControlName: 'password',
-                              obscureText: true,
-                              textInputAction: TextInputAction.done,
-                              decoration: decoration('Contraseña'),
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                            const SizedBox(height: 16.0),
-                            const SizedBox(height: 16.0),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (form.valid) {
-                                  await controller.login(
-                                    form.control('email').value,
-                                    form.control('password').value,
-                                  );
-                                  Get.offAllNamed(Routes.meetings);
-                                } else {
-                                  form.markAllAsTouched();
-                                }
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromARGB(255, 255, 3, 3),
-                                ),
-                                padding: MaterialStateProperty.all(
-                                    const EdgeInsets.all(15)),
-                                alignment: Alignment.center,
-                              ),
-                              child: const Text(
-                                'INGRESAR',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontFamily: 'Arial',
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                      builder: loginForm,
                     ),
                   ),
                 ),
