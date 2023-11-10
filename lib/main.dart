@@ -47,7 +47,6 @@ void main() async {
   );
 
   FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
-  FirebaseAuth.instance.idTokenChanges().listen(onAuthStateChange);
 
   Get.put(AuthService());
   Get.put(AvatarService());

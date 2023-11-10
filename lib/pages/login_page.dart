@@ -45,6 +45,7 @@ class LoginPage extends GetView<AuthService> {
     return RequiresNoAuth(
       builder: (context) {
         return AppView(
+          title: 'Iniciar sesión',
           child: Scaffold(
             body: Container(
               decoration: const BoxDecoration(

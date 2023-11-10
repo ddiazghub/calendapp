@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scheduler_app/colors.dart';
 import 'package:scheduler_app/components/page/destination.dart';
 import 'package:scheduler_app/components/page/logo.dart';
 import 'package:scheduler_app/layout/adaptative.dart';
@@ -12,10 +11,22 @@ import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/services/auth_service.dart';
 
 class AppView extends StatelessWidget {
-  const AppView({super.key, required this.child, this.currentTab});
+  const AppView({super.key, required this.child, this.currentTab, this.title});
 
   final Widget child;
   final NavigationTab? currentTab;
+  final String? title;
+
+  static AppBar appBar({NavigationTab? currentTab, String? title}) {
+    return AppBar(
+      title: Text(
+        title ??
+            (currentTab == null
+                ? ''
+                : Destination.defaults[currentTab.index].textLabel),
+      ),
+    );
+  }
 
   static void navigate(int index) {
     final destination = Destination.defaults[index];
@@ -30,15 +41,20 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isDisplayDesktop(context)) {
-      return DesktopView(currentTab: currentTab, child: child);
+      return DesktopView(currentTab: currentTab, title: title, child: child);
     } else {
-      return MobileView(currentTab: currentTab, child: child);
+      return MobileView(currentTab: currentTab, title: title, child: child);
     }
   }
 }
 
 class DesktopView extends AppView {
-  const DesktopView({super.key, required super.child, super.currentTab});
+  const DesktopView({
+    super.key,
+    required super.child,
+    super.currentTab,
+    super.title,
+  });
 
   static const unselectedColor = Color.fromRGBO(255, 164, 164, 1);
 
@@ -82,7 +98,13 @@ class DesktopView extends AppView {
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1300),
-                  child: child,
+                  child: Scaffold(
+                    appBar: AppView.appBar(
+                      currentTab: currentTab,
+                      title: title,
+                    ),
+                    body: child,
+                  ),
                 ),
               ),
             ),
@@ -94,13 +116,19 @@ class DesktopView extends AppView {
 }
 
 class MobileView extends AppView {
-  const MobileView({super.key, required super.child, super.currentTab});
+  const MobileView({
+    super.key,
+    required super.child,
+    super.currentTab,
+    super.title,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppView.appBar(currentTab: currentTab, title: title),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white,
         index: currentTab?.index ?? 0,

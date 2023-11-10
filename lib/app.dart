@@ -16,7 +16,7 @@ class SchedulerApp extends StatelessWidget {
     return ReactiveFormConfig(
       validationMessages: validation,
       child: GetMaterialApp(
-        title: 'Scheduler App',
+        title: 'CalendAPP',
         locale: const Locale('es'),
         supportedLocales: const [Locale('es')],
         localizationsDelegates: const [

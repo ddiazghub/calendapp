@@ -6,7 +6,6 @@ import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:scheduler_app/components/image_picker.dart';
 import 'package:scheduler_app/components/page/page_view.dart';
-import 'package:scheduler_app/layout/adaptative.dart';
 import 'package:scheduler_app/models/user.dart';
 import 'package:scheduler_app/routes.dart';
 import 'package:scheduler_app/services/auth_service.dart';
@@ -67,10 +66,9 @@ class UserDataForm extends GetView<AuthService> {
 
   @override
   Widget build(BuildContext context) {
-    final separator = SizedBox(height: isDisplayDesktop(context) ? 16 : 8);
-
     return AppView(
-      currentTab: NavigationTab.profile,
+      title: user == null ? 'Crear usuario' : 'Editar perfil',
+      currentTab: user == null ? null : NavigationTab.profile,
       child: Scaffold(
         body: ReactiveFormBuilder(
           form: buildForm,
@@ -114,9 +112,8 @@ class UserDataForm extends GetView<AuthService> {
                                     ),
                                 ],
                                 decoration: decoration('Rol'),
-                            style: const TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
-                              separator,
                               ReactiveTextField<String>(
                                 key: keys.name,
                                 formControlName: 'name',
@@ -124,7 +121,6 @@ class UserDataForm extends GetView<AuthService> {
                                 decoration: decoration('Nombres'),
                                 style: const TextStyle(color: Colors.black),
                               ),
-                              separator,
                               ReactiveTextField<String>(
                                 key: keys.email,
                                 formControlName: 'email',
@@ -132,7 +128,6 @@ class UserDataForm extends GetView<AuthService> {
                                 decoration: decoration('Correo'),
                                 style: const TextStyle(color: Colors.black),
                               ),
-                              separator,
                               if (user == null)
                                 ReactiveTextField<String>(
                                   key: keys.password,
@@ -142,7 +137,6 @@ class UserDataForm extends GetView<AuthService> {
                                   decoration: decoration('Contraseña'),
                                   style: const TextStyle(color: Colors.black),
                                 ),
-                              separator,
                               ReactiveDateTimePicker(
                                 key: keys.birthday,
                                 formControlName: 'birthday',
@@ -153,7 +147,6 @@ class UserDataForm extends GetView<AuthService> {
                                 ),
                                 style: const TextStyle(color: Colors.black),
                               ),
-                              separator,
                               ReactiveTextField<String>(
                                 key: keys.phone,
                                 formControlName: 'phone',
@@ -161,7 +154,7 @@ class UserDataForm extends GetView<AuthService> {
                                 decoration: decoration('Teléfono'),
                                 style: const TextStyle(color: Colors.black),
                               ),
-                              separator,
+                              const SizedBox(height: 10),
                               ElevatedButton(
                                 onPressed: () async {
                                   if (form.valid) {

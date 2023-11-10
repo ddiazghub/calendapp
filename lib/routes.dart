@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:scheduler_app/pages/calendar_page.dart';
-import 'package:scheduler_app/pages/inicio.dart';
+import 'package:scheduler_app/pages/home_page.dart';
 import 'package:scheduler_app/pages/profile_page.dart';
 import 'package:scheduler_app/pages/schedule_page.dart';
 import 'package:scheduler_app/pages/login_page.dart';

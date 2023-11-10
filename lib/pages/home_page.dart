@@ -90,12 +90,13 @@ class Homepage extends StatelessWidget {
     return RequiresNoAuth(
       builder: (context) {
         return AppView(
+          currentTab: NavigationTab.home,
           child: LayoutBuilder(
             builder: (context, constraints) {
               if (isDisplayDesktop(context)) {
                 // En pantallas más grandes, mantén la posición original del botón
                 return Container(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.only(top: 30),
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: Assets.background,
@@ -105,7 +106,7 @@ class Homepage extends StatelessWidget {
                   child: Column(
                     children: [
                       ...text,
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
                       buttons,
                     ],
                   ),
@@ -114,20 +115,23 @@ class Homepage extends StatelessWidget {
                 // En pantallas más pequeñas, reorganiza los elementos
                 return SingleChildScrollView(
                   child: Container(
-                    width: 1000,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: Assets.backgroundVertical,
                         fit: BoxFit.fitHeight,
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 80),
-                        ...text,
-                        const SizedBox(height: 270),
-                        buttons,
-                      ],
+                    child: Center(
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ...text,
+                            const SizedBox(height: 200),
+                            buttons,
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 );
