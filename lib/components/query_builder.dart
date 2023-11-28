@@ -11,11 +11,11 @@ Widget snapshotBuilder<T>(
 ) {
   if (snapshot.hasError) {
     return Center(child: Text('$snapshot.error'));
-  } else if (!snapshot.hasData) {
-    return const Spinner();
+  } else if (snapshot.hasData) {
+    return builder(context, snapshot.data as T);
   }
 
-  return builder(context, snapshot.data as T);
+  return const Spinner();
 }
 
 class QueryBuilder<T> extends StatelessWidget {

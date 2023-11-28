@@ -9,6 +9,7 @@ part of 'meeting.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, require_trailing_commas, prefer_single_quotes, prefer_double_quotes, use_super_parameters, duplicate_ignore
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_internal_member
 
 class _Sentinel {
   const _Sentinel();
@@ -790,13 +791,13 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
 
   MeetingQuery whereFieldPath(
     FieldPath fieldPath, {
-    Object? isEqualTo,
-    Object? isNotEqualTo,
-    Object? isLessThan,
-    Object? isLessThanOrEqualTo,
-    Object? isGreaterThan,
-    Object? isGreaterThanOrEqualTo,
-    Object? arrayContains,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
+    Object? arrayContains = notSetQueryParam,
     List<Object?>? arrayContainsAny,
     List<Object?>? whereIn,
     List<Object?>? whereNotIn,
@@ -823,12 +824,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereDocumentId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
@@ -852,12 +853,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereCreatedAt({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
@@ -866,24 +867,25 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['createdAt']!,
-        isEqualTo: isEqualTo != null
-            ? _$MeetingPerFieldToJson.createdAt(isEqualTo)
-            : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.createdAt(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.createdAt(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.createdAt(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.createdAt(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.createdAt(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.createdAt(isEqualTo as DateTime)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.createdAt(isNotEqualTo as DateTime)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.createdAt(isLessThan as DateTime)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.createdAt(isLessThanOrEqualTo as DateTime)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.createdAt(isGreaterThan as DateTime)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson
+                .createdAt(isGreaterThanOrEqualTo as DateTime)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.createdAt(e)),
         whereNotIn:
@@ -894,12 +896,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereStart({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
@@ -908,23 +910,24 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['start']!,
-        isEqualTo:
-            isEqualTo != null ? _$MeetingPerFieldToJson.start(isEqualTo) : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.start(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.start(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.start(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.start(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.start(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isEqualTo as DateTime)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isNotEqualTo as DateTime)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isLessThan as DateTime)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isLessThanOrEqualTo as DateTime)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isGreaterThan as DateTime)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.start(isGreaterThanOrEqualTo as DateTime)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.start(e)),
         whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.start(e)),
@@ -934,12 +937,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereEnd({
-    DateTime? isEqualTo,
-    DateTime? isNotEqualTo,
-    DateTime? isLessThan,
-    DateTime? isLessThanOrEqualTo,
-    DateTime? isGreaterThan,
-    DateTime? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
@@ -948,22 +951,24 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['end']!,
-        isEqualTo:
-            isEqualTo != null ? _$MeetingPerFieldToJson.end(isEqualTo) : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.end(isNotEqualTo)
-            : null,
-        isLessThan:
-            isLessThan != null ? _$MeetingPerFieldToJson.end(isLessThan) : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.end(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.end(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.end(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isEqualTo as DateTime)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isNotEqualTo as DateTime)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isLessThan as DateTime)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isLessThanOrEqualTo as DateTime)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isGreaterThan as DateTime)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.end(isGreaterThanOrEqualTo as DateTime)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.end(e)),
         whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.end(e)),
@@ -973,12 +978,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereTitle({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
@@ -987,23 +992,24 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['title']!,
-        isEqualTo:
-            isEqualTo != null ? _$MeetingPerFieldToJson.title(isEqualTo) : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.title(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.title(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.title(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.title(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.title(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isEqualTo as String)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isNotEqualTo as String)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isLessThan as String)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isLessThanOrEqualTo as String)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isGreaterThan as String)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.title(isGreaterThanOrEqualTo as String)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.title(e)),
         whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.title(e)),
@@ -1013,12 +1019,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereDescription({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
@@ -1027,24 +1033,25 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['description']!,
-        isEqualTo: isEqualTo != null
-            ? _$MeetingPerFieldToJson.description(isEqualTo)
-            : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.description(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.description(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.description(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.description(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.description(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.description(isEqualTo as String)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.description(isNotEqualTo as String)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.description(isLessThan as String)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.description(isLessThanOrEqualTo as String)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.description(isGreaterThan as String)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson
+                .description(isGreaterThanOrEqualTo as String)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.description(e)),
         whereNotIn:
@@ -1055,12 +1062,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereHost({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
@@ -1069,23 +1076,24 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['host']!,
-        isEqualTo:
-            isEqualTo != null ? _$MeetingPerFieldToJson.host(isEqualTo) : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.host(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.host(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.host(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.host(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.host(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isEqualTo as String)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isNotEqualTo as String)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isLessThan as String)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isLessThanOrEqualTo as String)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isGreaterThan as String)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.host(isGreaterThanOrEqualTo as String)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.host(e)),
         whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.host(e)),
@@ -1095,12 +1103,12 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereLocation({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
@@ -1109,24 +1117,24 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['location']!,
-        isEqualTo: isEqualTo != null
-            ? _$MeetingPerFieldToJson.location(isEqualTo)
-            : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.location(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.location(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.location(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.location(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.location(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isEqualTo as String)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isNotEqualTo as String)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isLessThan as String)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isLessThanOrEqualTo as String)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isGreaterThan as String)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.location(isGreaterThanOrEqualTo as String)
+            : notSetQueryParam,
         isNull: isNull,
         whereIn: whereIn?.map((e) => _$MeetingPerFieldToJson.location(e)),
         whereNotIn: whereNotIn?.map((e) => _$MeetingPerFieldToJson.location(e)),
@@ -1136,43 +1144,46 @@ class _$MeetingQuery extends QueryReference<Meeting, MeetingQuerySnapshot>
   }
 
   MeetingQuery whereInvitees({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
+    Object? isEqualTo = notSetQueryParam,
+    Object? isNotEqualTo = notSetQueryParam,
+    Object? isLessThan = notSetQueryParam,
+    Object? isLessThanOrEqualTo = notSetQueryParam,
+    Object? isGreaterThan = notSetQueryParam,
+    Object? isGreaterThanOrEqualTo = notSetQueryParam,
     bool? isNull,
-    String? arrayContains,
+    Object? arrayContains = notSetQueryParam,
     List<String>? arrayContainsAny,
   }) {
     return _$MeetingQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$MeetingFieldMap['invitees']!,
-        isEqualTo: isEqualTo != null
-            ? _$MeetingPerFieldToJson.invitees(isEqualTo)
-            : null,
-        isNotEqualTo: isNotEqualTo != null
-            ? _$MeetingPerFieldToJson.invitees(isNotEqualTo)
-            : null,
-        isLessThan: isLessThan != null
-            ? _$MeetingPerFieldToJson.invitees(isLessThan)
-            : null,
-        isLessThanOrEqualTo: isLessThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.invitees(isLessThanOrEqualTo)
-            : null,
-        isGreaterThan: isGreaterThan != null
-            ? _$MeetingPerFieldToJson.invitees(isGreaterThan)
-            : null,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
-            ? _$MeetingPerFieldToJson.invitees(isGreaterThanOrEqualTo)
-            : null,
+        isEqualTo: isEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.invitees(isEqualTo as List<String>)
+            : notSetQueryParam,
+        isNotEqualTo: isNotEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson.invitees(isNotEqualTo as List<String>)
+            : notSetQueryParam,
+        isLessThan: isLessThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.invitees(isLessThan as List<String>)
+            : notSetQueryParam,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson
+                .invitees(isLessThanOrEqualTo as List<String>)
+            : notSetQueryParam,
+        isGreaterThan: isGreaterThan != notSetQueryParam
+            ? _$MeetingPerFieldToJson.invitees(isGreaterThan as List<String>)
+            : notSetQueryParam,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != notSetQueryParam
+            ? _$MeetingPerFieldToJson
+                .invitees(isGreaterThanOrEqualTo as List<String>)
+            : notSetQueryParam,
         isNull: isNull,
-        arrayContains: arrayContains != null
-            ? (_$MeetingPerFieldToJson.invitees([arrayContains]) as List?)!
+        arrayContains: arrayContains != notSetQueryParam
+            ? (_$MeetingPerFieldToJson.invitees([arrayContains as String])
+                    as List?)!
                 .single
-            : null,
+            : notSetQueryParam,
         arrayContainsAny: arrayContainsAny != null
             ? _$MeetingPerFieldToJson.invitees(arrayContainsAny)
                 as Iterable<Object>?

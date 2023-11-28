@@ -13,9 +13,11 @@ class ProfilePage extends GetView<AuthService> {
   Widget build(BuildContext context) {
     return RequiresAuth(
       builder: (context) {
+        print(controller.user!.uid);
         return QueryBuilder(
           ref: UserRef.whereUid(isEqualTo: controller.user!.uid),
           builder: (context, snapshot) {
+            print(snapshot.docs);
             return UserDataForm(user: snapshot.docs[0].data);
           },
         );
